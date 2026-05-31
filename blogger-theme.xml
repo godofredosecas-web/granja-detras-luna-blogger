@@ -1,0 +1,1259 @@
+<html b:css='false' b:defaultmessages='false' b:layoutsVersion='3' xmlns:b='http://www.google.com/namespaces/b/10' xmlns:expr='http://www.google.com/namespaces/expr' xmlns:data='http://www.google.com/namespaces/data'>
+    <head>
+      <meta charset='UTF-8'/>
+      <meta content='width=device-width, initial-scale=1.0' name='viewport'/>
+      <meta content='Granja Detras de la Luna — espacio sagrado en Chihuahua dedicado a medicina ancestral, Temazcal terapeutico y reconexion espiritual en comunidad.' name='description'/>
+      <title><data:blog.pageTitle/></title>
+      <!-- @EDIT HERO: URL en HERO_IMAGE_URL (script al final del body) -->
+      <b:skin><![CDATA[
+    /* Estilos base del sistema */
+
+    /* Lightbox: forzar oculto hasta abrir */
+    #lightbox { display: none !important; visibility: hidden !important; pointer-events: none !important; }
+    #lightbox.is-open { display: flex !important; visibility: visible !important; pointer-events: auto !important; }
+    #lightbox-backdrop { position: absolute; inset: 0; background: rgba(20, 18, 16, 0.88); }
+    #lightbox-panel { position: relative; z-index: 10; width: 100%; max-width: 64rem; max-height: 92vh; display: flex; flex-direction: column; border-radius: 1rem; border: 1px solid rgba(255,255,255,0.1); background: rgba(46, 38, 32, 0.95); overflow: hidden; }
+    html { scroll-behavior: smooth; }
+
+    body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background: #141210; color: #F0E8DA; margin: 0; }
+        #inicio { min-height: 100vh; position: relative; }
+        #inicio .absolute.inset-0 { position: absolute; inset: 0; }
+        #inicio .absolute.inset-0 picture { display: block; width: 100%; height: 100%; }
+        #inicio .absolute.inset-0 img { width: 100%; height: 100%; object-fit: cover; display: block; }
+        #inicio .relative.z-10 { text-shadow: 0 2px 28px rgba(0,0,0,0.55), 0 1px 4px rgba(0,0,0,0.4); }
+        .font-display { font-family: Georgia, 'Times New Roman', serif; }
+        .gallery-card { transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.45s ease; }
+        .gallery-card:hover { transform: translateY(-6px); box-shadow: 0 24px 48px rgba(0,0,0,0.45); }
+        .nav-open #mobile-panel { max-height: 24rem; opacity: 1; }
+        .nav-open #menu-icon-open { display: none; }
+        .nav-open #menu-icon-close { display: block; }
+        #menu-icon-close { display: none; }
+        ::selection { background: rgba(201, 169, 98, 0.35); color: #fff; }
+        #lightbox:not(.is-open) { display: none; }
+        #lightbox.is-open { display: flex; }
+        body.lightbox-open { overflow: hidden; }
+        #lightbox-img { transition: opacity 0.25s ease, max-height 0.35s cubic-bezier(0.22, 1, 0.36, 1), max-width 0.35s cubic-bezier(0.22, 1, 0.36, 1); }
+        #lightbox-img.is-changing { opacity: 0; }
+        #lightbox-image-wrap { cursor: zoom-in; }
+        #lightbox.is-image-zoomed #lightbox-image-wrap { cursor: zoom-out; }
+        #lightbox-chrome-top,
+        #lightbox-chrome-bottom,
+        #lightbox-prev,
+        #lightbox-next,
+        #lightbox-zoom-hint {
+          transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+        #lightbox.is-image-zoomed #lightbox-panel {
+          max-width: 100%;
+          max-height: 100%;
+          width: 100%;
+          height: 100%;
+          background: transparent;
+          border-color: transparent;
+          box-shadow: none;
+          border-radius: 0;
+          transition: background 0.3s ease, border-color 0.3s ease;
+        }
+        #lightbox.is-image-zoomed #lightbox-chrome-top,
+        #lightbox.is-image-zoomed #lightbox-chrome-bottom,
+        #lightbox.is-image-zoomed #lightbox-prev,
+        #lightbox.is-image-zoomed #lightbox-next,
+        #lightbox.is-image-zoomed #lightbox-zoom-hint {
+          opacity: 0;
+          pointer-events: none;
+          transform: scale(0.96);
+        }
+        #lightbox.is-image-zoomed #lightbox-close {
+          opacity: 0;
+          pointer-events: none;
+        }
+        #lightbox.is-image-zoomed #lightbox-backdrop {
+          background: rgba(20, 18, 16, 0.97);
+        }
+        #lightbox.is-image-zoomed #lightbox-stage {
+          flex: 1;
+          min-height: 100%;
+          padding: 0;
+        }
+        #lightbox.is-image-zoomed #lightbox-image-wrap {
+          position: fixed;
+          inset: 0;
+          z-index: 25;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding: 1.5rem;
+          min-height: auto;
+          max-height: none;
+        }
+        #lightbox.is-image-zoomed #lightbox-img {
+          max-height: 96vh;
+          max-width: 96vw;
+          border-radius: 0.25rem;
+        }
+        .gallery-card { cursor: pointer; }
+        .gallery-card:focus-visible { outline: 2px solid rgba(201, 169, 98, 0.6); outline-offset: 4px; }
+        #lightbox-video-wrap { display: none; width: 100%; max-width: 100%; min-height: 266px; aspect-ratio: 16/9; max-height: 58vh; position: relative; z-index: 5; }
+        #lightbox-video-wrap iframe { display: block; width: 100%; min-height: 266px; height: 100%; background: #141210; }
+        #lightbox.is-video-slide #lightbox-image-wrap { display: none !important; }
+        #lightbox.is-video-slide #lightbox-video-wrap { display: flex !important; align-items: center; justify-content: center; }
+        #lightbox.is-video-slide #lightbox-zoom-hint { display: none !important; }
+        #lightbox.is-video-slide.is-image-zoomed #lightbox-image-wrap { position: relative; inset: auto; padding: 0; }
+        #lightbox-video-fallback { display: none; margin-top: 0.75rem; text-align: center; }
+        #lightbox.is-video-slide #lightbox-video-fallback.is-visible { display: block; }
+        #lightbox.is-video-slide #lightbox-video-wrap { flex-direction: column; }
+        .blogger-video-shell { width: 100%; display: flex; flex-direction: column; align-items: center; gap: 1rem; }
+        .blogger-video-actions { display: flex; flex-wrap: wrap; gap: 0.75rem; justify-content: center; z-index: 12; }
+        .blogger-video-open-btn { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.85rem 1.5rem; border-radius: 9999px; background: rgba(201,169,98,0.92); color: #141210; font-weight: 600; font-size: 0.95rem; text-decoration: none; box-shadow: 0 8px 24px rgba(0,0,0,0.35); }
+        .blogger-video-open-btn:hover { background: rgb(226, 201, 138); color: #141210; }
+        .blogger-video-post-link { display: inline-flex; align-items: center; padding: 0.85rem 1.25rem; border-radius: 9999px; border: 1px solid rgba(201,169,98,0.45); color: #F5E6C8; font-size: 0.9rem; text-decoration: none; }
+        .blogger-video-post-link:hover { border-color: rgba(201,169,98,0.75); color: #fff; }
+        .blogger-video-hint { font-size: 0.8rem; color: hsla(40,30%,79%,0.88); text-align: center; max-width: 34rem; line-height: 1.55; margin: 0; padding: 0 0.5rem; }
+        .blogger-video-iframe-wrap { width: 100%; border-radius: 0.5rem; overflow: hidden; background: #141210; }
+        .gallery-card .media-play-badge { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; pointer-events: none; }
+        .gallery-card .media-play-badge span { width: 3.5rem; height: 3.5rem; border-radius: 9999px; background: rgba(20,18,16,0.72); border: 1px solid rgba(201,169,98,0.35); display: flex; align-items: center; justify-content: center; color: #F5E6C8; font-size: 1.25rem; }
+
+
+    /* Tailwind compilado */
+    *,:after,:before{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgba(59,130,246,.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }::backdrop{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgba(59,130,246,.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }/*! tailwindcss v3.4.17 | MIT License | https://tailwindcss.com*/*,:after,:before{box-sizing:border-box;border:0 solid #e5e7eb}:after,:before{--tw-content:""}:host,html{line-height:1.5;-webkit-text-size-adjust:100%;-moz-tab-size:4;-o-tab-size:4;tab-size:4;font-family:system-ui,-apple-system,Segoe UI,sans-serif;font-feature-settings:normal;font-variation-settings:normal;-webkit-tap-highlight-color:transparent}body{margin:0;line-height:inherit}hr{height:0;color:inherit;border-top-width:1px}abbr:where([title]){-webkit-text-decoration:underline dotted;text-decoration:underline dotted}h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight:inherit}a{color:inherit;text-decoration:inherit}b,strong{font-weight:bolder}code,kbd,pre,samp{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,Liberation Mono,Courier New,monospace;font-feature-settings:normal;font-variation-settings:normal;font-size:1em}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}table{text-indent:0;border-color:inherit;border-collapse:collapse}button,input,optgroup,select,textarea{font-family:inherit;font-feature-settings:inherit;font-variation-settings:inherit;font-size:100%;font-weight:inherit;line-height:inherit;letter-spacing:inherit;color:inherit;margin:0;padding:0}button,select{text-transform:none}button,input:where([type=button]),input:where([type=reset]),input:where([type=submit]){-webkit-appearance:button;background-color:transparent;background-image:none}:-moz-focusring{outline:auto}:-moz-ui-invalid{box-shadow:none}progress{vertical-align:baseline}::-webkit-inner-spin-button,::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}summary{display:list-item}blockquote,dd,dl,figure,h1,h2,h3,h4,h5,h6,hr,p,pre{margin:0}fieldset{margin:0}fieldset,legend{padding:0}menu,ol,ul{list-style:none;margin:0;padding:0}dialog{padding:0}textarea{resize:vertical}input::-moz-placeholder,textarea::-moz-placeholder{opacity:1;color:#9ca3af}input::placeholder,textarea::placeholder{opacity:1;color:#9ca3af}[role=button],button{cursor:pointer}:disabled{cursor:default}audio,canvas,embed,iframe,img,object,svg,video{display:block;vertical-align:middle}img,video{max-width:100%;height:auto}[hidden]:where(:not([hidden=until-found])){display:none}.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border-width:0}.pointer-events-none{pointer-events:none}.fixed{position:fixed}.absolute{position:absolute}.relative{position:relative}.inset-0{inset:0}.inset-x-0{left:0;right:0}.bottom-10{bottom:2.5rem}.left-1\/2{left:50%}.left-2{left:.5rem}.left-5{left:1.25rem}.right-2{right:.5rem}.right-3{right:.75rem}.right-4{right:1rem}.top-0{top:0}.top-1\/2{top:50%}.top-3{top:.75rem}.top-4{top:1rem}.z-10{z-index:10}.z-20{z-index:20}.z-50{z-index:50}.z-\[100\]{z-index:100}.mx-1{margin-left:.25rem;margin-right:.25rem}.mx-auto{margin-left:auto;margin-right:auto}.mb-10{margin-bottom:2.5rem}.mb-12{margin-bottom:3rem}.mb-14{margin-bottom:3.5rem}.mb-16{margin-bottom:4rem}.mb-2{margin-bottom:.5rem}.mb-20{margin-bottom:5rem}.mb-3{margin-bottom:.75rem}.mb-4{margin-bottom:1rem}.mb-6{margin-bottom:1.5rem}.mb-8{margin-bottom:2rem}.mt-12{margin-top:3rem}.mt-2{margin-top:.5rem}.mt-24{margin-top:6rem}.mt-6{margin-top:1.5rem}.block{display:block}.flex{display:flex}.inline-flex{display:inline-flex}.grid{display:grid}.hidden{display:none}.aspect-\[4\/3\]{aspect-ratio:4/3}.h-11{height:2.75rem}.h-12{height:3rem}.h-20{height:5rem}.h-4{height:1rem}.h-5{height:1.25rem}.h-6{height:1.5rem}.h-7{height:1.75rem}.h-9{height:2.25rem}.h-auto{height:auto}.h-full{height:100%}.h-px{height:1px}.max-h-0{max-height:0}.max-h-\[58vh\]{max-height:58vh}.max-h-\[92vh\]{max-height:92vh}.min-h-0{min-height:0}.min-h-\[4\.5rem\]{min-height:4.5rem}.min-h-\[40vh\]{min-height:40vh}.min-h-screen{min-height:100vh}.w-11{width:2.75rem}.w-12{width:3rem}.w-24{width:6rem}.w-4{width:1rem}.w-5{width:1.25rem}.w-6{width:1.5rem}.w-7{width:1.75rem}.w-9{width:2.25rem}.w-auto{width:auto}.w-full{width:100%}.min-w-0{min-width:0}.max-w-2xl{max-width:42rem}.max-w-3xl{max-width:48rem}.max-w-4xl{max-width:56rem}.max-w-5xl{max-width:64rem}.max-w-7xl{max-width:80rem}.max-w-full{max-width:100%}.flex-1{flex:1 1 0%}.shrink-0{flex-shrink:0}.-translate-x-1\/2{--tw-translate-x:-50%}.-translate-x-1\/2,.-translate-y-1\/2{transform:translate(var(--tw-translate-x),var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.-translate-y-1\/2{--tw-translate-y:-50%}.scale-105{--tw-scale-x:1.05;--tw-scale-y:1.05}.scale-105,.transform{transform:translate(var(--tw-translate-x),var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}@keyframes bounce{0%,to{transform:translateY(-25%);animation-timing-function:cubic-bezier(.8,0,1,1)}50%{transform:none;animation-timing-function:cubic-bezier(0,0,.2,1)}}.animate-bounce{animation:bounce 1s infinite}.select-none{-webkit-user-select:none;-moz-user-select:none;user-select:none}.grid-cols-1{grid-template-columns:repeat(1,minmax(0,1fr))}.flex-col{flex-direction:column}.flex-wrap{flex-wrap:wrap}.items-start{align-items:flex-start}.items-center{align-items:center}.justify-center{justify-content:center}.justify-between{justify-content:space-between}.gap-1{gap:.25rem}.gap-10{gap:2.5rem}.gap-2{gap:.5rem}.gap-4{gap:1rem}.gap-5{gap:1.25rem}.gap-6{gap:1.5rem}.gap-8{gap:2rem}.space-y-10>:not([hidden])~:not([hidden]){--tw-space-y-reverse:0;margin-top:calc(2.5rem*(1 - var(--tw-space-y-reverse)));margin-bottom:calc(2.5rem*var(--tw-space-y-reverse))}.overflow-hidden{overflow:hidden}.scroll-smooth{scroll-behavior:smooth}.truncate{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.rounded-2xl{border-radius:1rem}.rounded-full{border-radius:9999px}.rounded-lg{border-radius:.5rem}.border{border-width:1px}.border-b{border-bottom-width:1px}.border-t{border-top-width:1px}.border-moon\/20{border-color:rgba(201,169,98,.2)}.border-moon\/25{border-color:rgba(201,169,98,.25)}.border-moon\/50{border-color:rgba(201,169,98,.5)}.border-white\/10{border-color:hsla(0,0%,100%,.1)}.border-white\/15{border-color:hsla(0,0%,100%,.15)}.border-white\/5{border-color:hsla(0,0%,100%,.05)}.bg-charcoal{--tw-bg-opacity:1;background-color:rgb(20 18 16/var(--tw-bg-opacity,1))}.bg-charcoal\/60{background-color:rgba(20,18,16,.6)}.bg-charcoal\/70{background-color:rgba(20,18,16,.7)}.bg-charcoal\/75{background-color:rgba(20,18,16,.75)}.bg-charcoal\/95{background-color:rgba(20,18,16,.95)}.bg-earth-dark\/30{background-color:rgba(46,38,32,.3)}.bg-earth-dark\/60{background-color:rgba(46,38,32,.6)}.bg-earth-dark\/95{background-color:rgba(46,38,32,.95)}.bg-forest-deep{--tw-bg-opacity:1;background-color:rgb(26 43 34/var(--tw-bg-opacity,1))}.bg-forest-deep\/50{background-color:rgba(26,43,34,.5)}.bg-moon\/40{background-color:rgba(201,169,98,.4)}.bg-moon\/90{background-color:rgba(201,169,98,.9)}.bg-card-shine{background-image:linear-gradient(180deg,transparent 40%,rgba(20,18,16,.85))}.bg-gradient-to-b{background-image:linear-gradient(to bottom,var(--tw-gradient-stops))}.bg-gradient-to-br{background-image:linear-gradient(to bottom right,var(--tw-gradient-stops))}.bg-gradient-to-l{background-image:linear-gradient(to left,var(--tw-gradient-stops))}.bg-hero-gradient{background-image:linear-gradient(115deg,rgba(20,18,16,.68),rgba(26,43,34,.42) 38%,rgba(20,18,16,.22) 62%,rgba(20,18,16,.08))}.from-charcoal{--tw-gradient-from:#141210 var(--tw-gradient-from-position);--tw-gradient-to:rgba(20,18,16,0) var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-from),var(--tw-gradient-to)}.from-forest-deep{--tw-gradient-from:#1a2b22 var(--tw-gradient-from-position);--tw-gradient-to:rgba(26,43,34,0) var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-from),var(--tw-gradient-to)}.from-transparent{--tw-gradient-from:transparent var(--tw-gradient-from-position);--tw-gradient-to:transparent var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-from),var(--tw-gradient-to)}.via-earth-dark\/40{--tw-gradient-to:rgba(46,38,32,0) var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-from),rgba(46,38,32,.4) var(--tw-gradient-via-position),var(--tw-gradient-to)}.via-transparent{--tw-gradient-to:transparent var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-from),transparent var(--tw-gradient-via-position),var(--tw-gradient-to)}.to-charcoal{--tw-gradient-to:#141210 var(--tw-gradient-to-position)}.to-charcoal\/25{--tw-gradient-to:rgba(20,18,16,.25) var(--tw-gradient-to-position)}.to-earth-dark{--tw-gradient-to:#2e2620 var(--tw-gradient-to-position)}.object-contain{-o-object-fit:contain;object-fit:contain}.object-cover{-o-object-fit:cover;object-fit:cover}.object-\[72\%_38\%\]{-o-object-position:72% 38%;object-position:72% 38%}.p-10{padding:2.5rem}.p-2{padding:.5rem}.p-4{padding:1rem}.p-8{padding:2rem}.px-10{padding-left:2.5rem;padding-right:2.5rem}.px-3{padding-left:.75rem;padding-right:.75rem}.px-4{padding-left:1rem;padding-right:1rem}.px-6{padding-left:1.5rem;padding-right:1.5rem}.px-8{padding-left:2rem;padding-right:2rem}.py-1{padding-top:.25rem;padding-bottom:.25rem}.py-12{padding-top:3rem;padding-bottom:3rem}.py-20{padding-top:5rem;padding-bottom:5rem}.py-28{padding-top:7rem;padding-bottom:7rem}.py-4{padding-top:1rem;padding-bottom:1rem}.py-5{padding-top:1.25rem;padding-bottom:1.25rem}.py-6{padding-top:1.5rem;padding-bottom:1.5rem}.py-8{padding-top:2rem;padding-bottom:2rem}.pb-32{padding-bottom:8rem}.pb-4{padding-bottom:1rem}.pb-8{padding-bottom:2rem}.pl-14{padding-left:3.5rem}.pr-6{padding-right:1.5rem}.pt-2{padding-top:.5rem}.pt-28{padding-top:7rem}.pt-6{padding-top:1.5rem}.pt-8{padding-top:2rem}.text-center{text-align:center}.font-display{font-family:Georgia,Times New Roman,serif}.text-2xl{font-size:1.5rem;line-height:2rem}.text-3xl{font-size:1.875rem;line-height:2.25rem}.text-4xl{font-size:2.25rem;line-height:2.5rem}.text-\[10px\]{font-size:10px}.text-base{font-size:1rem;line-height:1.5rem}.text-lg{font-size:1.125rem;line-height:1.75rem}.text-sm{font-size:.875rem;line-height:1.25rem}.text-xl{font-size:1.25rem;line-height:1.75rem}.text-xs{font-size:.75rem;line-height:1rem}.font-light{font-weight:300}.font-medium{font-weight:500}.font-normal{font-weight:400}.font-semibold{font-weight:600}.uppercase{text-transform:uppercase}.italic{font-style:italic}.not-italic{font-style:normal}.leading-\[1\.1\]{line-height:1.1}.leading-\[1\.85\]{line-height:1.85}.leading-relaxed{line-height:1.625}.leading-snug{line-height:1.375}.leading-tight{line-height:1.25}.tracking-\[0\.12em\]{letter-spacing:.12em}.tracking-\[0\.14em\]{letter-spacing:.14em}.tracking-\[0\.15em\]{letter-spacing:.15em}.tracking-\[0\.2em\]{letter-spacing:.2em}.tracking-\[0\.35em\]{letter-spacing:.35em}.tracking-\[0\.4em\]{letter-spacing:.4em}.tracking-wide{letter-spacing:.025em}.tracking-wider{letter-spacing:.05em}.text-charcoal{--tw-text-opacity:1;color:rgb(20 18 16/var(--tw-text-opacity,1))}.text-moon{--tw-text-opacity:1;color:rgb(201 169 98/var(--tw-text-opacity,1))}.text-moon-light{--tw-text-opacity:1;color:rgb(226 201 138/var(--tw-text-opacity,1))}.text-moon-pale{--tw-text-opacity:1;color:rgb(245 230 200/var(--tw-text-opacity,1))}.text-moon-pale\/80{color:hsla(40,69%,87%,.8)}.text-moon-pale\/90{color:hsla(40,69%,87%,.9)}.text-moon\/60{color:rgba(201,169,98,.6)}.text-moon\/90{color:rgba(201,169,98,.9)}.text-sand-warm{--tw-text-opacity:1;color:rgb(240 232 218/var(--tw-text-opacity,1))}.text-sand\/60{color:hsla(40,30%,79%,.6)}.text-sand\/65{color:hsla(40,30%,79%,.65)}.text-sand\/70{color:hsla(40,30%,79%,.7)}.text-sand\/75{color:hsla(40,30%,79%,.75)}.text-sand\/80{color:hsla(40,30%,79%,.8)}.text-sand\/85{color:hsla(40,30%,79%,.85)}.text-sand\/90{color:hsla(40,30%,79%,.9)}.antialiased{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}.opacity-0{opacity:0}.opacity-50{opacity:.5}.shadow-2xl{--tw-shadow:0 25px 50px -12px rgba(0,0,0,.25);--tw-shadow-colored:0 25px 50px -12px var(--tw-shadow-color)}.shadow-2xl,.shadow-lg{box-shadow:var(--tw-ring-offset-shadow,0 0 #0000),var(--tw-ring-shadow,0 0 #0000),var(--tw-shadow)}.shadow-lg{--tw-shadow:0 10px 15px -3px rgba(0,0,0,.1),0 4px 6px -4px rgba(0,0,0,.1);--tw-shadow-colored:0 10px 15px -3px var(--tw-shadow-color),0 4px 6px -4px var(--tw-shadow-color)}.shadow-black\/50{--tw-shadow-color:rgba(0,0,0,.5);--tw-shadow:var(--tw-shadow-colored)}.shadow-moon\/20{--tw-shadow-color:rgba(201,169,98,.2);--tw-shadow:var(--tw-shadow-colored)}.outline{outline-style:solid}.brightness-110{--tw-brightness:brightness(1.1)}.brightness-110,.filter{filter:var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow)}.backdrop-blur-md{--tw-backdrop-blur:blur(12px)}.backdrop-blur-md,.backdrop-blur-sm{-webkit-backdrop-filter:var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);backdrop-filter:var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia)}.backdrop-blur-sm{--tw-backdrop-blur:blur(4px)}.transition{transition-property:color,background-color,border-color,text-decoration-color,fill,stroke,opacity,box-shadow,transform,filter,-webkit-backdrop-filter;transition-property:color,background-color,border-color,text-decoration-color,fill,stroke,opacity,box-shadow,transform,filter,backdrop-filter;transition-property:color,background-color,border-color,text-decoration-color,fill,stroke,opacity,box-shadow,transform,filter,backdrop-filter,-webkit-backdrop-filter;transition-timing-function:cubic-bezier(.4,0,.2,1);transition-duration:.15s}.transition-all{transition-property:all;transition-timing-function:cubic-bezier(.4,0,.2,1);transition-duration:.15s}.transition-colors{transition-property:color,background-color,border-color,text-decoration-color,fill,stroke;transition-timing-function:cubic-bezier(.4,0,.2,1);transition-duration:.15s}.transition-transform{transition-property:transform;transition-timing-function:cubic-bezier(.4,0,.2,1);transition-duration:.15s}.duration-300{transition-duration:.3s}.duration-400{transition-duration:.4s}.duration-500{transition-duration:.5s}.duration-700{transition-duration:.7s}.ease-out{transition-timing-function:cubic-bezier(0,0,.2,1)}.placeholder\:text-sand\/60::-moz-placeholder{color:hsla(40,30%,79%,.6)}.placeholder\:text-sand\/60::placeholder{color:hsla(40,30%,79%,.6)}.hover\:border-moon-light:hover{--tw-border-opacity:1;border-color:rgb(226 201 138/var(--tw-border-opacity,1))}.hover\:border-moon\/40:hover{border-color:rgba(201,169,98,.4)}.hover\:border-moon\/50:hover{border-color:rgba(201,169,98,.5)}.hover\:bg-moon-light:hover{--tw-bg-opacity:1;background-color:rgb(226 201 138/var(--tw-bg-opacity,1))}.hover\:bg-moon\/10:hover{background-color:rgba(201,169,98,.1)}.hover\:bg-moon\/20:hover{background-color:rgba(201,169,98,.2)}.hover\:text-moon-light:hover{--tw-text-opacity:1;color:rgb(226 201 138/var(--tw-text-opacity,1))}.hover\:text-moon-pale:hover{--tw-text-opacity:1;color:rgb(245 230 200/var(--tw-text-opacity,1))}.focus\:border-moon\/50:focus{border-color:rgba(201,169,98,.5)}.focus\:outline-none:focus{outline:2px solid transparent;outline-offset:2px}.focus\:ring-1:focus{--tw-ring-offset-shadow:var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);--tw-ring-shadow:var(--tw-ring-inset) 0 0 0 calc(1px + var(--tw-ring-offset-width)) var(--tw-ring-color);box-shadow:var(--tw-ring-offset-shadow),var(--tw-ring-shadow),var(--tw-shadow,0 0 #0000)}.focus\:ring-moon\/30:focus{--tw-ring-color:rgba(201,169,98,.3)}.disabled\:pointer-events-none:disabled{pointer-events:none}.disabled\:opacity-25:disabled{opacity:.25}.group:hover .group-hover\:scale-105{--tw-scale-x:1.05;--tw-scale-y:1.05;transform:translate(var(--tw-translate-x),var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.group:hover .group-hover\:text-moon-light{--tw-text-opacity:1;color:rgb(226 201 138/var(--tw-text-opacity,1))}@media (min-width:640px){.sm\:left-4{left:1rem}.sm\:right-4{right:1rem}.sm\:grid-cols-2{grid-template-columns:repeat(2,minmax(0,1fr))}.sm\:grid-cols-3{grid-template-columns:repeat(3,minmax(0,1fr))}.sm\:flex-row{flex-direction:row}.sm\:gap-8{gap:2rem}.sm\:p-8{padding:2rem}.sm\:px-10{padding-left:2.5rem;padding-right:2.5rem}.sm\:px-12{padding-left:3rem;padding-right:3rem}.sm\:px-6{padding-left:1.5rem;padding-right:1.5rem}.sm\:py-36{padding-top:9rem;padding-bottom:9rem}.sm\:pb-10{padding-bottom:2.5rem}.sm\:pt-8{padding-top:2rem}.sm\:text-2xl{font-size:1.5rem;line-height:2rem}.sm\:text-4xl{font-size:2.25rem;line-height:2.5rem}.sm\:text-5xl{font-size:3rem;line-height:1}.sm\:text-lg{font-size:1.125rem;line-height:1.75rem}.sm\:text-sm{font-size:.875rem;line-height:1.25rem}.sm\:text-xl{font-size:1.25rem;line-height:1.75rem}}@media (min-width:768px){.md\:flex{display:flex}.md\:hidden{display:none}.md\:flex-row{flex-direction:row}.md\:justify-between{justify-content:space-between}.md\:text-3xl{font-size:1.875rem;line-height:2.25rem}.md\:text-6xl{font-size:3.75rem;line-height:1}}@media (min-width:1024px){.lg\:mb-16{margin-bottom:4rem}.lg\:mb-24{margin-bottom:6rem}.lg\:mb-28{margin-bottom:7rem}.lg\:mt-32{margin-top:8rem}.lg\:h-24{height:6rem}.lg\:grid-cols-3{grid-template-columns:repeat(3,minmax(0,1fr))}.lg\:gap-12{gap:3rem}.lg\:p-10{padding:2.5rem}.lg\:px-16{padding-left:4rem;padding-right:4rem}.lg\:py-44{padding-top:11rem;padding-bottom:11rem}.lg\:text-2xl{font-size:1.5rem;line-height:2rem}.lg\:text-5xl{font-size:3rem;line-height:1}.lg\:text-7xl{font-size:4.5rem;line-height:1}}
+    ]]></b:skin>
+      <b:include data='blog' name='all-head-content'/>
+    </head>
+    <body class='antialiased text-sand-warm bg-charcoal'>
+
+    <header id="site-header" class="fixed top-0 inset-x-0 z-50 transition-all duration-500 bg-charcoal/70 backdrop-blur-md border-b border-white/5">
+        <div class="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 flex items-center justify-between h-20 lg:h-24">
+          <a href="#inicio" class="font-display text-lg sm:text-xl tracking-wide text-moon-pale hover:text-moon-light transition-colors">Detrás de la Luna</a>
+          <nav class="hidden md:flex items-center gap-10 text-sm tracking-[0.12em] uppercase text-sand/80">
+            <a href="#inicio" class="hover:text-moon-light transition-colors">Inicio</a>
+            <a href="#filosofia" class="hover:text-moon-light transition-colors">Filosofía</a>
+            <a href="#bitacora" class="hover:text-moon-light transition-colors">Bitácora</a>
+            <a href="https://calendar.app.google/YDDPBgQ76pFZHpHV7" target="_blank" rel="noopener" class="text-moon hover:text-moon-light transition-colors">Reservar</a>
+          </nav>
+          <button id="menu-toggle" type="button" aria-label="Abrir menú" class="md:hidden p-2 text-moon-pale hover:text-moon-light">
+            <svg id="menu-icon-open" class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 6h16M4 12h16M4 18h16"/></svg>
+            <svg id="menu-icon-close" class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12"/></svg>
+          </button>
+        </div>
+        <div id="mobile-panel" class="md:hidden overflow-hidden max-h-0 opacity-0 transition-all duration-400 ease-out border-t border-white/5 bg-charcoal/95">
+          <nav class="flex flex-col px-6 py-8 gap-6 text-sm tracking-[0.14em] uppercase text-sand/90">
+            <a href="#inicio" class="mobile-link hover:text-moon-light">Inicio</a>
+            <a href="#filosofia" class="mobile-link hover:text-moon-light">Filosofía</a>
+            <a href="#bitacora" class="mobile-link hover:text-moon-light">Bitácora</a>
+            <a href="https://calendar.app.google/YDDPBgQ76pFZHpHV7" target="_blank" rel="noopener" class="text-moon hover:text-moon-light">Reservar sesión</a>
+          </nav>
+        </div>
+      </header>
+
+      <section id="inicio" class="relative min-h-screen flex items-center justify-center overflow-hidden">
+        <div class="absolute inset-0">
+          <img id='hero-img' src='' alt="Panoramica del rancho Detras de la Luna bajo un doble arcoiris al atardecer" fetchpriority="high" decoding="sync" width="1024" height="453" class="w-full h-full object-cover object-[72%_38%] scale-105 brightness-110 saturate-110" />
+          <div class="absolute inset-0 bg-hero-gradient"></div>
+          <div class="absolute inset-0 bg-gradient-to-l from-transparent via-transparent to-charcoal/25"></div>
+        </div>
+        <div class="relative z-10 max-w-5xl mx-auto px-8 sm:px-12 lg:px-16 text-center pt-28 pb-32">
+          <p class="text-moon/90 text-xs sm:text-sm tracking-[0.35em] uppercase mb-8 font-medium">Carretera Aldama · Chihuahua, México</p>
+          <h1 class="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-moon-pale leading-[1.1] mb-8 font-semibold">Granja Detrás de la Luna</h1>
+          <p class="font-display text-xl sm:text-2xl md:text-3xl text-sand/90 italic font-normal mb-12 max-w-3xl mx-auto leading-relaxed">Espacio sagrado de medicina ancestral, tierra viva y ceremonia consciente</p>
+          <p class="text-sand/75 text-base sm:text-lg max-w-2xl mx-auto leading-relaxed mb-14 font-light">En el corazón del norte mexicano cultivamos un santuario ecológico donde el Temazcal terapéutico, la sanación integral y la comunidad se encuentran bajo la luna — entre piedra, agua, fuego y canto.</p>
+          <div class="flex flex-col sm:flex-row items-center justify-center gap-5 sm:gap-8">
+            <a href="#bitacora" class="inline-flex items-center justify-center px-10 py-4 rounded-full bg-moon/90 text-charcoal font-medium tracking-wide hover:bg-moon-light transition-all shadow-lg shadow-moon/20">Explorar la bitácora</a>
+            <a href="https://calendar.app.google/YDDPBgQ76pFZHpHV7" target="_blank" rel="noopener" class="inline-flex items-center justify-center gap-2 px-10 py-4 rounded-full border border-moon/50 text-moon-pale tracking-wide hover:bg-moon/10 hover:border-moon-light transition-all">
+              <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+              Concertar reservación
+            </a>
+          </div>
+        </div>
+        <div class="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce opacity-50">
+          <svg class="w-6 h-6 text-moon-pale" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 9l-7 7-7-7"/></svg>
+        </div>
+      </section>
+
+      <section id="filosofia" class="py-28 sm:py-36 lg:py-44 bg-gradient-to-b from-charcoal via-earth-dark/40 to-charcoal">
+        <div class="max-w-4xl mx-auto px-8 sm:px-12 lg:px-16">
+          <div class="text-center mb-20 lg:mb-28">
+            <span class="text-moon text-xs tracking-[0.4em] uppercase font-medium">Quiénes somos</span>
+            <h2 class="font-display text-3xl sm:text-4xl lg:text-5xl text-moon-pale mt-6 mb-8 leading-tight">Filosofía del espacio sagrado</h2>
+            <div class="w-24 h-px bg-moon/40 mx-auto"></div>
+          </div>
+          <div class="space-y-10 text-sand/85 text-lg sm:text-xl leading-[1.85] font-light">
+            <p><strong class="font-medium text-moon-pale font-display font-normal text-2xl not-italic">Detrás de la Luna</strong> es un espacio sagrado en Chihuahua, México, dedicado a la medicina ancestral, el <strong class="text-moon-light">Temazcal Terapéutico</strong>, la sanación integral y la reconexión espiritual en comunidad. Aquí la tierra no es un escenario: es maestra, altar y medicina.</p>
+            <p>Nuestra granja ecológica integra permacultura, construcción natural con mampostería y piedra de la región, invernaderos subterráneos (walipini), biopiscinas y estanques vivos — porque el cuerpo y la tierra sanan juntos cuando honramos los ciclos naturales: la lluvia que llega, la semilla que germina, el sol en el muro de piedra y el reposo después del trabajo. El paisaje y el cuerpo respiran el mismo ritmo. Cada registro en nuestra bitácora es testimonio de ese pacto consciente con la vida.</p>
+            <p>Las ceremonias y encuentros se sostienen mediante <strong class="text-moon-light">procesos conscientes</strong>: cantos, rezos, silencio compartido y la guía del vapor del temazcal como portal de purificación. No ofrecemos turismo espiritual acelerado; invitamos a habitar el tiempo lento de la Tierra, honrando la armonía del círculo sagrado.</p>
+            <p class="font-display italic text-moon-pale/90 text-center text-xl sm:text-2xl pt-8 border-t border-white/10 mt-12">«Donde la luna ilumina la sombra, la raíz encuentra su canto.»</p>
+          </div>
+          <div class="grid sm:grid-cols-3 gap-8 mt-24 lg:mt-32">
+            <article class="text-center p-10 rounded-2xl bg-forest-deep/50 border border-white/5">
+              <div class="text-moon font-display text-3xl mb-4">☽</div>
+              <h3 class="font-display text-xl text-moon-pale mb-3">Temazcal</h3>
+              <p class="text-sand/70 text-sm leading-relaxed">Construcción ceremonial y vapor terapéutico como camino de purificación y encuentro.</p>
+            </article>
+            <article class="text-center p-10 rounded-2xl bg-forest-deep/50 border border-white/5">
+              <div class="text-moon font-display text-3xl mb-4">❋</div>
+              <h3 class="font-display text-xl text-moon-pale mb-3">Tierra viva</h3>
+              <p class="text-sand/70 text-sm leading-relaxed">Permacultura, agua, piedra y bosque seco: pedagogía ecológica desde el cuerpo al territorio.</p>
+            </article>
+            <article class="text-center p-10 rounded-2xl bg-forest-deep/50 border border-white/5">
+              <div class="text-moon font-display text-3xl mb-4">◎</div>
+              <h3 class="font-display text-xl text-moon-pale mb-3">Comunidad</h3>
+              <p class="text-sand/70 text-sm leading-relaxed">Círculos de sanación, trabajo colectivo y celebración consciente bajo reservación previa.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="bitacora" class="py-28 sm:py-36 lg:py-44 bg-charcoal border-t border-white/5">
+        <div class="max-w-7xl mx-auto px-8 sm:px-12 lg:px-16">
+          <div class="text-center mb-16 lg:mb-24 max-w-3xl mx-auto">
+            <span class="text-moon text-xs tracking-[0.4em] uppercase font-medium">Galería del espacio sagrado</span>
+            <h2 class="font-display text-3xl sm:text-4xl lg:text-5xl text-moon-pale mt-6 mb-6">Bitácora de la Tierra</h2>
+            <p id="bitacora-intro" class="text-sand/70 text-lg leading-relaxed font-light">Registros del rancho ecológico — mampostería, walipini, biopiscina, lluvias y vida en comunidad — nuestra memoria viva en la tierra.</p>
+          </div>
+          <div class="max-w-2xl mx-auto mb-12 lg:mb-16">
+            <label for="search-input" class="sr-only">Buscar en la bitácora</label>
+            <div class="relative">
+              <svg class="absolute left-5 top-1/2 -translate-y-1/2 w-5 h-5 text-sand/65" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 21l-4.35-4.35M11 18a7 7 0 100-14 7 7 0 000 14z"/></svg>
+              <input id="search-input" type="search" placeholder="Buscar por título, texto o etiqueta…" class="w-full pl-14 pr-6 py-5 rounded-2xl bg-earth-dark/60 border border-white/10 text-sand-warm placeholder:text-sand/60 focus:outline-none focus:border-moon/50 focus:ring-1 focus:ring-moon/30 transition-all" />
+            </div>
+          </div>
+          <p id="gallery-count" class="text-center text-sand/75 text-sm mb-10 tracking-wide" aria-live="polite"></p>
+          <div id="gallery-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 lg:gap-12"></div>
+          <p id="gallery-empty" class="hidden text-center text-sand/60 text-lg py-20 font-display italic">Ninguna entrada coincide con tu búsqueda. Prueba otra palabra o etiqueta.</p>
+        </div>
+      </section>
+
+      <b:if cond='data:blog.pageType == &quot;item&quot;'>
+        <section id='item-view' class='py-28 sm:py-36 lg:py-44 bg-charcoal border-t border-white/5'>
+          <div id='item-content' class='max-w-4xl mx-auto px-8 sm:px-12 lg:px-16'></div>
+        </section>
+      </b:if>
+
+      <!-- Lightbox / galería por entrada -->
+      <div id="lightbox" class="fixed inset-0 z-[100] items-center justify-center p-4 sm:p-8" role="dialog" aria-modal="true" aria-labelledby="lightbox-title" aria-hidden="true">
+        <div id="lightbox-backdrop" class="absolute inset-0 bg-charcoal/88 backdrop-blur-md" aria-hidden="true"></div>
+        <div id="lightbox-panel" class="relative z-10 w-full max-w-5xl max-h-[92vh] flex flex-col rounded-2xl border border-white/10 bg-earth-dark/95 shadow-2xl shadow-black/50 overflow-hidden transition-all duration-300">
+          <div id="lightbox-chrome-top" class="flex items-start justify-between gap-6 px-6 sm:px-10 pt-6 sm:pt-8 pb-4 border-b border-white/5">
+            <div class="min-w-0 flex-1">
+              <p id="lightbox-date" class="text-xs tracking-[0.2em] uppercase text-sand/75 mb-2"></p>
+              <h2 id="lightbox-title" class="font-display text-xl sm:text-2xl text-moon-pale leading-snug truncate"></h2>
+              <p id="lightbox-counter" class="text-sand/70 text-xs mt-2 tracking-wide"></p>
+            </div>
+            <button id="lightbox-close" type="button" aria-label="Cerrar galería" class="shrink-0 w-11 h-11 rounded-full border border-white/15 text-sand/80 hover:text-moon-pale hover:border-moon/50 hover:bg-moon/10 transition-all flex items-center justify-center">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12"/></svg>
+            </button>
+          </div>
+          <div id="lightbox-stage" class="relative flex items-center justify-center flex-1 min-h-0 px-4 sm:px-6 py-6 transition-all duration-300">
+            <button id="lightbox-prev" type="button" aria-label="Imagen anterior" class="absolute left-2 sm:left-4 z-20 w-12 h-12 rounded-full border border-white/15 bg-charcoal/60 backdrop-blur-sm text-moon-pale hover:bg-moon/20 hover:border-moon/40 transition-all flex items-center justify-center disabled:opacity-25 disabled:pointer-events-none">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 19l-7-7 7-7"/></svg>
+            </button>
+            <div id="lightbox-media" class="relative w-full flex flex-col items-center justify-center min-h-[40vh] max-h-[70vh]">
+              <div id="lightbox-image-wrap" class="relative w-full flex flex-col items-center justify-center max-h-[58vh] group" role="button" tabindex="0" aria-label="Expandir imagen a pantalla completa">
+                <img id="lightbox-img" src="" alt="" class="max-w-full max-h-[58vh] w-auto h-auto object-contain rounded-lg select-none" />
+                <span id="lightbox-zoom-hint" class="absolute top-3 right-3 z-10 flex items-center justify-center w-9 h-9 rounded-full bg-charcoal/75 backdrop-blur-sm border border-moon/25 text-moon-pale pointer-events-none shadow-lg" aria-hidden="true">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"/></svg>
+                </span>
+              </div>
+              <div id="lightbox-video-wrap" class="w-full max-h-[58vh] rounded-lg overflow-hidden bg-charcoal"></div>
+              <p id="lightbox-video-fallback" class="text-sm text-sand/80"></p>
+            </div>
+            <button id="lightbox-next" type="button" aria-label="Imagen siguiente" class="absolute right-2 sm:right-4 z-20 w-12 h-12 rounded-full border border-white/15 bg-charcoal/60 backdrop-blur-sm text-moon-pale hover:bg-moon/20 hover:border-moon/40 transition-all flex items-center justify-center disabled:opacity-25 disabled:pointer-events-none">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5l7 7-7 7"/></svg>
+            </button>
+          </div>
+          <div id="lightbox-chrome-bottom" class="px-6 sm:px-10 pb-8 sm:pb-10 pt-2 border-t border-white/5 min-h-[4.5rem]">
+            <p id="lightbox-caption" class="font-display text-base sm:text-lg text-sand/90 text-center leading-relaxed italic"></p>
+          </div>
+        </div>
+      </div>
+
+      <footer class="py-12 border-t border-white/5 bg-charcoal">
+        <div class="max-w-7xl mx-auto px-8 sm:px-12 lg:px-16 flex flex-col md:flex-row items-center justify-center md:justify-between gap-6 text-sand/70 text-sm">
+          <span class="font-display text-moon-pale/80">Granja Detrás de la Luna</span>
+          <span>© 2026 · Carretera Aldama, Chihuahua, México</span>
+        </div>
+      </footer>
+
+      <script type='text/javascript'>//<![CDATA[
+    'use strict';
+
+    // @EDIT Pega aqui la URL directa de la imagen hero (formato s1600 de Blogger / googleusercontent)
+    var HERO_IMAGE_URL = '';
+
+    var GALLERY_BATCH = 5;
+    var blogPosts = [];
+    var searchQuery = '';
+    var lightboxState = { post: null, slides: [], index: 0, isZoomed: false };
+    var renderGeneration = 0;
+    var searchDebounceTimer = null;
+
+    var BLOGGER_FEED_URL = window.location.protocol + '//' + window.location.host + '/feeds/posts/default?alt=json&max-results=150';
+    var ATOM_TEXT_KEY = '$' + 't';
+    var MEDIA_THUMB_KEY = 'media' + '$' + 'thumbnail';
+
+    function atomText(obj) {
+      if (!obj) return '';
+      if (typeof obj === 'string') return obj;
+      if (obj[ATOM_TEXT_KEY]) return obj[ATOM_TEXT_KEY];
+      if (obj.value) return obj.value;
+      return '';
+    }
+
+    function applyHeroImage() {
+      if (!HERO_IMAGE_URL) return;
+      var img = document.getElementById('hero-img');
+      var preload = document.getElementById('hero-preload');
+      if (img) img.src = HERO_IMAGE_URL;
+      if (!preload) {
+        preload = document.createElement('link');
+        preload.id = 'hero-preload';
+        preload.rel = 'preload';
+        preload.as = 'image';
+        preload.setAttribute('fetchpriority', 'high');
+        document.head.appendChild(preload);
+      }
+      preload.href = HERO_IMAGE_URL;
+    }
+
+    function applyHeroFromFeed() {
+      if (HERO_IMAGE_URL) return;
+      var i, post;
+      for (i = 0; i < blogPosts.length; i++) {
+        post = blogPosts[i];
+        if (post.images && post.images.length) {
+          HERO_IMAGE_URL = post.images[0].src;
+          break;
+        }
+      }
+      applyHeroImage();
+    }
+
+    function getEntryLink(links) {
+      if (!links || !links.length) return '';
+      var i, alt = null;
+      for (i = 0; i < links.length; i++) {
+        if (links[i].rel === 'alternate') { alt = links[i]; break; }
+      }
+      return (alt && alt.href) ? alt.href : (links[0].href || '');
+    }
+
+    function slugFromUrl(url) {
+      if (!url) return '';
+      var parts = url.split('/');
+      var last = parts[parts.length - 1] || '';
+      return last.replace('.html', '');
+    }
+
+    function formatPublished(iso) {
+      if (!iso) return '';
+      try {
+        return new Date(iso).toLocaleDateString('es-MX', { year: 'numeric', month: 'long', day: 'numeric' });
+      } catch (e) {
+        return iso;
+      }
+    }
+
+    function stripHtml(html) {
+      if (!html) return '';
+      var doc = new DOMParser().parseFromString(html, 'text/html');
+      return (doc.body.textContent || '').replace(/\s+/g, ' ').trim();
+    }
+
+    function upgradeBloggerImageUrl(src) {
+      if (!src) return '';
+      if (src.indexOf('//') === 0) src = 'https:' + src;
+      return src
+        .replace(/\/w\d+-h\d+\//, '/s1600/')
+        .replace(/\/s\d+-w\d+-h\d+-c\//, '/s1600/')
+        .replace(/\/s\d+(-c)?\//, '/s1600/');
+    }
+
+    var IMAGE_EXT_RE = /\.(jpe?g|png|gif|webp|bmp|avif|svg)(\?|#|$)/i;
+
+    function normalizeContentUrl(src) {
+      if (!src) return '';
+      src = src.trim();
+      if (src.indexOf('//') === 0) src = 'https:' + src;
+      return src;
+    }
+
+    function isLikelyImageUrl(url) {
+      if (!url) return false;
+      var u = url.toLowerCase();
+      if (IMAGE_EXT_RE.test(u)) return true;
+      if (u.indexOf('googleusercontent.com') !== -1) return true;
+      if (u.indexOf('blogger.googleusercontent.com') !== -1) return true;
+      if (u.indexOf('/image/') !== -1 && u.indexOf('google.com') !== -1) return true;
+      return false;
+    }
+
+    function pushParsedImage(images, seen, src, alt, caption) {
+      src = upgradeBloggerImageUrl(normalizeContentUrl(src));
+      if (!src || seen[src]) return;
+      seen[src] = true;
+      images.push({
+        src: src,
+        alt: (alt || '').trim(),
+        caption: (caption || '').trim(),
+        description: (caption || '').trim()
+      });
+    }
+
+    function parseImagesFromContent(html) {
+      if (!html) return [];
+      var doc = new DOMParser().parseFromString(html, 'text/html');
+      var images = [], seen = {}, imgs = doc.querySelectorAll('img'), idx, node, href, text;
+      for (idx = 0; idx < imgs.length; idx++) {
+        var img = imgs[idx];
+        var caption = '';
+        var container = img.closest('.tr-caption-container');
+        if (!container) container = img.closest('table');
+        if (container) {
+          var capEl = container.querySelector('.tr-caption');
+          if (capEl) caption = (capEl.textContent || '').trim();
+        }
+        pushParsedImage(images, seen, img.getAttribute('src') || '', img.getAttribute('alt') || '', caption);
+      }
+      var anchors = doc.querySelectorAll('a[href]');
+      for (idx = 0; idx < anchors.length; idx++) {
+        node = anchors[idx];
+        href = node.getAttribute('href') || '';
+        if (!isLikelyImageUrl(href)) continue;
+        if (node.querySelector('img')) continue;
+        text = (node.textContent || '').trim();
+        pushParsedImage(images, seen, href, text, text);
+      }
+      var urlInText = html.match(/https?:\/\/[^\s<>"']+/gi);
+      if (urlInText) {
+        for (idx = 0; idx < urlInText.length; idx++) {
+          href = urlInText[idx].replace(/[.,;:!?)]+$/, '');
+          if (isLikelyImageUrl(href)) pushParsedImage(images, seen, href, '', '');
+        }
+      }
+      return images;
+    }
+
+    var YOUTUBE_ID_RE = /(?:youtube\.com\/(?:embed\/|watch\?v=|v\/)|youtu\.be\/)([\w-]{11})/i;
+    var VIMEO_ID_RE = /vimeo\.com\/(?:video\/)?(\d+)/i;
+
+    function normalizeVideoEmbedUrl(src) {
+      if (!src) return '';
+      if (src.indexOf('//') === 0) src = 'https:' + src;
+      var m = src.match(YOUTUBE_ID_RE);
+      if (m) return 'https://www.youtube.com/embed/' + m[1];
+      m = src.match(VIMEO_ID_RE);
+      if (m) return 'https://player.vimeo.com/video/' + m[1];
+      return src;
+    }
+
+    function parseVideosFromContent(html) {
+      if (!html) return [];
+      var doc = new DOMParser().parseFromString(html, 'text/html');
+      var videos = [], seen = {}, nodes, idx, node, src, title, w, h;
+      nodes = doc.querySelectorAll('iframe, video, embed');
+      for (idx = 0; idx < nodes.length; idx++) {
+        node = nodes[idx];
+        src = '';
+        title = '';
+        w = 0;
+        h = 0;
+        if (node.tagName === 'VIDEO') {
+          src = node.getAttribute('src') || '';
+          if (!src) {
+            var source = node.querySelector('source');
+            if (source) src = source.getAttribute('src') || '';
+          }
+          title = (node.getAttribute('title') || '').trim();
+          w = parseInt(node.getAttribute('width'), 10) || 0;
+          h = parseInt(node.getAttribute('height'), 10) || 0;
+        } else {
+          src = node.getAttribute('src') || node.getAttribute('data-src') || '';
+          title = (node.getAttribute('title') || '').trim();
+          w = parseInt(node.getAttribute('width'), 10) || 0;
+          h = parseInt(node.getAttribute('height'), 10) || 0;
+        }
+        src = normalizeVideoEmbedUrl(src);
+        if (!src || seen[src]) continue;
+        seen[src] = true;
+        var vtype = 'iframe';
+        if (src.indexOf('youtube.com') !== -1) vtype = 'youtube';
+        else if (src.indexOf('vimeo.com') !== -1) vtype = 'vimeo';
+        else if (src.indexOf('blogger.com/video.g') !== -1) vtype = 'blogger';
+        else if (/\.(mp4|webm|ogg|mov)(\?|$)/i.test(src)) vtype = 'file';
+        videos.push({
+          type: vtype,
+          embed_url: src,
+          title: title,
+          width: w > 0 ? w : (vtype === 'blogger' ? 640 : 640),
+          height: h > 0 ? h : (vtype === 'blogger' ? 360 : 360)
+        });
+      }
+      return videos;
+    }
+
+    function bloggerVideoEmbedUrl(video) {
+      if (!video || !video.embed_url) return '';
+      var url = video.embed_url;
+      if (url.indexOf('blogger.com/video.g') === -1) return url;
+      if (url.indexOf('postUrl=') !== -1) return url;
+      if (video.postUrl) {
+        url += (url.indexOf('?') >= 0 ? '&' : '?') + 'postUrl=' + encodeURIComponent(video.postUrl);
+      }
+      return url;
+    }
+
+    function getYouTubeThumb(embedUrl) {
+      var m = embedUrl.match(YOUTUBE_ID_RE);
+      return m ? 'https://img.youtube.com/vi/' + m[1] + '/hqdefault.jpg' : '';
+    }
+
+    function getVideoThumbnail(video) {
+      if (!video || !video.embed_url) return '';
+      if (video.type === 'youtube') return getYouTubeThumb(video.embed_url);
+      return '';
+    }
+
+    function getPostVideos(post) {
+      return (post && post.videos) ? post.videos.filter(function (v) { return v && v.embed_url; }) : [];
+    }
+
+    function getPostSlides(post) {
+      var slides = [], imgs = getPostImages(post), vids = getPostVideos(post), i;
+      for (i = 0; i < vids.length; i++) {
+        slides.push({
+          kind: 'video',
+          embed_url: vids[i].embed_url,
+          type: vids[i].type,
+          title: vids[i].title || '',
+          caption: vids[i].title || '',
+          width: vids[i].width,
+          height: vids[i].height,
+          postUrl: vids[i].postUrl || (post && post.url) || ''
+        });
+      }
+      for (i = 0; i < imgs.length; i++) {
+        slides.push({ kind: 'image', src: imgs[i].src, alt: imgs[i].alt, caption: imgs[i].caption, description: imgs[i].description });
+      }
+      return slides;
+    }
+
+    function getInitialLightboxIndex(post) {
+      var imgs = getPostImages(post);
+      var vids = getPostVideos(post);
+      if (vids.length && !imgs.length) return 0;
+      return 0;
+    }
+
+    function getMediaCount(post) {
+      return getPostImages(post).length + getPostVideos(post).length;
+    }
+
+    function getSlideCaption(slide) {
+      if (!slide) return '';
+      if (slide.kind === 'video') return (slide.caption || slide.title || '').trim();
+      return getImageCaption(slide);
+    }
+
+    function clearLightboxVideo() {
+      var wrap = document.getElementById('lightbox-video-wrap');
+      if (wrap) wrap.innerHTML = '';
+      var fallback = document.getElementById('lightbox-video-fallback');
+      if (fallback) {
+        fallback.innerHTML = '';
+        fallback.classList.remove('is-visible');
+      }
+    }
+
+    function updateLightboxVideoFallback(slide) {
+      var fallback = document.getElementById('lightbox-video-fallback');
+      if (!fallback) return;
+      fallback.innerHTML = '';
+      fallback.classList.remove('is-visible');
+      if (!slide || slide.kind !== 'video') return;
+      var openUrl = bloggerVideoEmbedUrl(slide) || slide.embed_url;
+      if (slide.postUrl) {
+        fallback.innerHTML = 'Si el reproductor no carga, <a href="' + escapeHtml(slide.postUrl) + '" target="_blank" rel="noopener noreferrer" class="text-moon hover:text-moon-light underline underline-offset-2">abre la entrada en Blogger</a> o <a href="' + escapeHtml(openUrl) + '" target="_blank" rel="noopener noreferrer" class="text-moon hover:text-moon-light underline underline-offset-2">reproduce el video en pantalla completa</a>.';
+      } else {
+        fallback.innerHTML = 'Si el reproductor no carga, <a href="' + escapeHtml(openUrl) + '" target="_blank" rel="noopener noreferrer" class="text-moon hover:text-moon-light underline underline-offset-2">abre el video en una pestana nueva</a>.';
+      }
+      fallback.classList.add('is-visible');
+    }
+
+    function isBloggerHostedVideo(video) {
+      var url = (typeof video === 'string') ? video : (video && video.embed_url) || '';
+      return url.indexOf('blogger.com/video.g') !== -1;
+    }
+
+    function buildVideoIframeHtml(video) {
+      var embedUrl = (typeof video === 'string') ? video : (video && video.embed_url) || '';
+      if (!embedUrl) return '';
+      var width = (video && video.width) ? video.width : 640;
+      var height = (video && video.height) ? video.height : 360;
+      var isBlogger = isBloggerHostedVideo(video);
+      if (typeof video !== 'string' && video && isBlogger) {
+        embedUrl = bloggerVideoEmbedUrl(video);
+      }
+      var html = '<iframe src="' + escapeHtml(embedUrl) + '" title="Video de la bitacora" width="' + width + '" height="' + height + '"';
+      html += ' style="width:100%;max-width:100%;height:' + height + 'px;min-height:266px;border:0"';
+      html += ' allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"';
+      html += ' allowfullscreen="" webkitallowfullscreen="" mozallowfullscreen=""';
+      html += ' referrerpolicy="' + (isBlogger ? 'origin' : 'strict-origin-when-cross-origin') + '" loading="eager"';
+      if (isBlogger) {
+        html += ' class="b-hbp-video b-uploaded" frameborder="0"';
+      }
+      html += '></iframe>';
+      return html;
+    }
+
+    function buildVideoPlayerHtml(video) {
+      if (!isBloggerHostedVideo(video)) return buildVideoIframeHtml(video);
+      var playUrl = bloggerVideoEmbedUrl(video);
+      var postLink = (video && video.postUrl) ? video.postUrl : '';
+      var html = '<div class="blogger-video-shell">';
+      html += '<div class="blogger-video-actions">';
+      html += '<a class="blogger-video-open-btn" href="' + escapeHtml(playUrl) + '" target="_blank" rel="noopener noreferrer">&#9654; Reproducir video</a>';
+      if (postLink) {
+        html += '<a class="blogger-video-post-link" href="' + escapeHtml(postLink) + '" target="_blank" rel="noopener noreferrer">Ver entrada</a>';
+      }
+      html += '</div>';
+      html += '<p class="blogger-video-hint">Videos subidos a Blogger: si <strong>solo oyes audio y la pantalla es negra</strong> (en Brave/Linux), desactiva aceleraci&oacute;n por hardware en <code>brave://settings/system</code> o abre Brave con <code>--disable-features=AcceleratedVideoDecodeLinuxGL</code>. Vuelve a subir el archivo en H.264 (MP4) o publ&iacute;calo en YouTube y pega el enlace de inserci&oacute;n.</p>';
+      html += '<div class="blogger-video-iframe-wrap">' + buildVideoIframeHtml(video) + '</div>';
+      html += '</div>';
+      return html;
+    }
+
+    function thumbnailFromEntry(entry) {
+      var thumb = entry[MEDIA_THUMB_KEY];
+      if (!thumb) return null;
+      var url = thumb.url || (thumb[ATOM_TEXT_KEY] ? thumb[ATOM_TEXT_KEY] : '');
+      return url ? upgradeBloggerImageUrl(url) : null;
+    }
+
+    function entryToPost(entry) {
+      if (!entry) return null;
+      var title = atomText(entry.title);
+      var content = atomText(entry.content) || atomText(entry.summary);
+      var url = getEntryLink(entry.link);
+      var labels = [];
+      if (entry.category) {
+        var cats = entry.category;
+        if (!cats.length) cats = [cats];
+        var c;
+        for (c = 0; c < cats.length; c++) {
+          var term = cats[c].term;
+          if (term && term.indexOf('schemas.google.com') === -1) labels.push(term);
+        }
+      }
+      var images = parseImagesFromContent(content);
+      var videos = parseVideosFromContent(content);
+      var vi;
+      for (vi = 0; vi < videos.length; vi++) videos[vi].postUrl = url;
+      if (!images.length && !videos.length) {
+        var thumbSrc = thumbnailFromEntry(entry);
+        if (thumbSrc) images.push({ src: thumbSrc, alt: title, caption: '', description: '' });
+      }
+      return {
+        title: title,
+        published: formatPublished(atomText(entry.published)),
+        url: url,
+        slug: slugFromUrl(url),
+        labels: labels,
+        text: stripHtml(content),
+        images: images,
+        videos: videos
+      };
+    }
+
+    function loadBlogPosts() {
+      return fetch(BLOGGER_FEED_URL).then(function (res) {
+        if (!res.ok) throw new Error('No se pudo cargar la bitacora (' + res.status + ')');
+        return res.json();
+      }).then(function (data) {
+        var entries = (data.feed && data.feed.entry) ? data.feed.entry : [];
+        if (entries && !entries.length && entries[ATOM_TEXT_KEY] === undefined && !entries.map) entries = [entries];
+        blogPosts = entries.map(entryToPost).filter(function (p) { return p && p.title; });
+      });
+    }
+
+    function updateBitacoraIntro() {
+      var el = document.getElementById('bitacora-intro');
+      if (!el || !blogPosts.length) return;
+      el.textContent = blogPosts.length + ' registros del rancho ecologico — mamposteria, walipini, biopiscina, lluvias y vida en comunidad — nuestra memoria viva en la tierra.';
+    }
+
+    function scheduleIdle(fn, timeout) {
+      if (timeout === undefined) timeout = 1200;
+      if (typeof requestIdleCallback === 'function') {
+        requestIdleCallback(function () { fn(); }, { timeout: timeout });
+      } else {
+        setTimeout(fn, 1);
+      }
+    }
+
+    function escapeHtml(str) {
+      if (!str) return '';
+      var div = document.createElement('div');
+      div.textContent = str;
+      return div.innerHTML;
+    }
+
+    function truncate(text, max) {
+      if (!text) return '';
+      var t = text.trim();
+      if (t.length <= max) return t;
+      return t.slice(0, max).trim() + '\u2026';
+    }
+
+    function getExcerpt(post) {
+      if (post.text && post.text.trim()) return truncate(post.text.trim(), 180);
+      var imgs = post.images || [];
+      var i, img;
+      for (i = 0; i < imgs.length; i++) {
+        img = imgs[i];
+        if ((img.description && img.description.trim()) || (img.caption && img.caption.trim())) {
+          return truncate((img.description || img.caption).trim(), 180);
+        }
+      }
+      var ni = imgs.length;
+      var nv = getPostVideos(post).length;
+      if (ni > 0 || nv > 0) {
+        var parts = [];
+        if (ni > 0) parts.push(ni + ' foto' + (ni === 1 ? '' : 's'));
+        if (nv > 0) parts.push(nv + ' video' + (nv === 1 ? '' : 's'));
+        return 'Registro del rancho \u00b7 ' + parts.join(', ') + ' en \u00ab' + post.title + '\u00bb.';
+      }
+      return truncate(post.title, 180);
+    }
+
+    function getCoverImage(post) {
+      var imgs = post.images || [];
+      if (imgs[0] && imgs[0].src) return imgs[0].src;
+      var vids = getPostVideos(post);
+      if (vids[0]) return getVideoThumbnail(vids[0]);
+      return null;
+    }
+
+    function getPostImages(post) {
+      return (post.images || []).filter(function (i) { return i && i.src; });
+    }
+
+    var DEFAULT_IMAGE_ALT = 'Registro fotografico de Granja Detras de la Luna';
+
+    function getImageCaption(img) {
+      if (!img) return '';
+      var caption = (img.caption || '').trim();
+      var description = (img.description || '').trim();
+      return caption || description || '';
+    }
+
+    function getImageAlt(post, img) {
+      if (img && (img.alt || '').trim()) return img.alt.trim();
+      if (post && (post.title || '').trim()) return post.title.trim();
+      return DEFAULT_IMAGE_ALT;
+    }
+
+    function setLightboxZoom(zoomed) {
+      var slide = lightboxState.slides[lightboxState.index];
+      if (!slide || slide.kind === 'video') return;
+      lightboxState.isZoomed = zoomed;
+      var lightbox = document.getElementById('lightbox');
+      var wrap = document.getElementById('lightbox-image-wrap');
+      lightbox.classList.toggle('is-image-zoomed', zoomed);
+      wrap.setAttribute('aria-label', zoomed
+        ? 'Reducir imagen al tamano del carrusel'
+        : 'Expandir imagen a pantalla completa');
+      document.getElementById('lightbox-img').setAttribute('aria-expanded', String(zoomed));
+    }
+
+    function collapseLightboxZoom() {
+      if (lightboxState.isZoomed) setLightboxZoom(false);
+    }
+
+    function toggleLightboxZoom() {
+      var slide = lightboxState.slides[lightboxState.index];
+      if (!slide || slide.kind === 'video') return;
+      setLightboxZoom(!lightboxState.isZoomed);
+    }
+
+    function updateLightboxSlide() {
+      collapseLightboxZoom();
+      var slides = lightboxState.slides;
+      var index = lightboxState.index;
+      var post = lightboxState.post;
+      if (!slides.length) return;
+
+      var lightbox = document.getElementById('lightbox');
+      var imgEl = document.getElementById('lightbox-img');
+      var videoWrap = document.getElementById('lightbox-video-wrap');
+      var captionEl = document.getElementById('lightbox-caption');
+      var counterEl = document.getElementById('lightbox-counter');
+      var prevBtn = document.getElementById('lightbox-prev');
+      var nextBtn = document.getElementById('lightbox-next');
+      var fallbackEl = document.getElementById('lightbox-video-fallback');
+      var current = slides[index];
+
+      imgEl.classList.add('is-changing');
+      function showSlide() {
+        clearLightboxVideo();
+        if (current.kind === 'video') {
+          lightbox.classList.add('is-video-slide');
+          videoWrap.innerHTML = buildVideoPlayerHtml(current);
+          updateLightboxVideoFallback(current);
+          imgEl.removeAttribute('src');
+          imgEl.alt = post.title || 'Video';
+          captionEl.textContent = getSlideCaption(current) || 'Video de la bitacora';
+          captionEl.classList.toggle('text-sand/60', !getSlideCaption(current));
+          captionEl.classList.toggle('italic', !!getSlideCaption(current));
+          counterEl.textContent = slides.length > 1
+            ? 'Video ' + (index + 1) + ' de ' + slides.length
+            : '1 video en esta entrada';
+        } else {
+          lightbox.classList.remove('is-video-slide');
+          if (fallbackEl) {
+            fallbackEl.innerHTML = '';
+            fallbackEl.classList.remove('is-visible');
+          }
+          imgEl.src = current.src;
+          imgEl.alt = getImageAlt(post, current);
+          imgEl.loading = 'eager';
+          imgEl.decoding = 'async';
+          var caption = getSlideCaption(current);
+          captionEl.textContent = caption;
+          captionEl.classList.toggle('text-sand/60', !caption);
+          captionEl.classList.toggle('italic', !!caption);
+          if (!caption) captionEl.textContent = 'Sin pie de foto para esta imagen.';
+          counterEl.textContent = slides.length > 1
+            ? 'Imagen ' + (index + 1) + ' de ' + slides.length
+            : '1 imagen en esta entrada';
+        }
+        prevBtn.disabled = index <= 0;
+        nextBtn.disabled = index >= slides.length - 1;
+        imgEl.classList.remove('is-changing');
+      }
+
+      requestAnimationFrame(function () {
+        requestAnimationFrame(showSlide);
+      });
+    }
+
+    function openLightbox(post, startIndex) {
+      if (startIndex === undefined) startIndex = getInitialLightboxIndex(post);
+      var slides = getPostSlides(post);
+      if (!slides.length) return;
+
+      lightboxState = {
+        post: post,
+        slides: slides,
+        index: Math.max(0, Math.min(startIndex, slides.length - 1)),
+        isZoomed: false
+      };
+      document.getElementById('lightbox').classList.remove('is-image-zoomed', 'is-video-slide');
+
+      document.getElementById('lightbox-title').textContent = post.title;
+      document.getElementById('lightbox-date').textContent = post.published || '';
+      document.getElementById('lightbox').classList.add('is-open');
+      document.getElementById('lightbox').setAttribute('aria-hidden', 'false');
+      document.body.classList.add('lightbox-open');
+      updateLightboxSlide();
+    }
+
+    function closeLightbox() {
+      collapseLightboxZoom();
+      clearLightboxVideo();
+      document.getElementById('lightbox').classList.remove('is-open', 'is-image-zoomed', 'is-video-slide');
+      document.getElementById('lightbox').setAttribute('aria-hidden', 'true');
+      document.body.classList.remove('lightbox-open');
+      document.getElementById('lightbox-img').src = '';
+      lightboxState = { post: null, slides: [], index: 0, isZoomed: false };
+    }
+
+    function navigateLightbox(delta) {
+      collapseLightboxZoom();
+      var slides = lightboxState.slides;
+      var index = lightboxState.index;
+      if (!slides.length) return;
+      var next = index + delta;
+      if (next < 0 || next >= slides.length) return;
+      lightboxState.index = next;
+      updateLightboxSlide();
+    }
+
+    function initLightbox() {
+      var imageWrap = document.getElementById('lightbox-image-wrap');
+
+      imageWrap.addEventListener('click', function (e) {
+        e.stopPropagation();
+        var slide = lightboxState.slides[lightboxState.index];
+        if (!slide || slide.kind === 'video') return;
+        toggleLightboxZoom();
+      });
+      imageWrap.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          e.stopPropagation();
+          var slide = lightboxState.slides[lightboxState.index];
+          if (!slide || slide.kind === 'video') return;
+          toggleLightboxZoom();
+        }
+      });
+
+      document.getElementById('lightbox-close').addEventListener('click', closeLightbox);
+      document.getElementById('lightbox-backdrop').addEventListener('click', function () {
+        if (lightboxState.isZoomed) collapseLightboxZoom();
+        else closeLightbox();
+      });
+      document.getElementById('lightbox-prev').addEventListener('click', function (e) {
+        e.stopPropagation();
+        navigateLightbox(-1);
+      });
+      document.getElementById('lightbox-next').addEventListener('click', function (e) {
+        e.stopPropagation();
+        navigateLightbox(1);
+      });
+      document.getElementById('lightbox-panel').addEventListener('click', function (e) { e.stopPropagation(); });
+
+      document.addEventListener('keydown', function (e) {
+        if (!document.getElementById('lightbox').classList.contains('is-open')) return;
+        if (e.key === 'Escape') {
+          if (lightboxState.isZoomed) collapseLightboxZoom();
+          else closeLightbox();
+          return;
+        }
+        if (e.key === 'ArrowLeft') navigateLightbox(-1);
+        if (e.key === 'ArrowRight') navigateLightbox(1);
+      });
+    }
+
+    function postMatches(post) {
+      var q = searchQuery.toLowerCase().trim();
+      if (!q) return true;
+      var parts = [post.title, post.text, post.published, post.slug];
+      var labels = post.labels || [];
+      var i;
+      for (i = 0; i < labels.length; i++) parts.push(labels[i]);
+      var imgs = post.images || [];
+      for (i = 0; i < imgs.length; i++) {
+        var im = imgs[i];
+        parts.push([im.description, im.caption, im.alt].join(' '));
+      }
+      var vids = post.videos || [];
+      for (i = 0; i < vids.length; i++) {
+        parts.push([vids[i].title, vids[i].embed_url, vids[i].type].join(' '));
+      }
+      return parts.join(' ').toLowerCase().indexOf(q) !== -1;
+    }
+
+    function buildLabelsHtml(labels) {
+      var slice = (labels || []).slice(0, 3);
+      var html = '', i;
+      for (i = 0; i < slice.length; i++) {
+        if (i > 0) html += '<span class="text-sand/60 mx-1" aria-hidden="true">\u00b7</span>';
+        html += '<span class="text-[10px] tracking-wider uppercase text-moon">' + escapeHtml(slice[i]) + '</span>';
+      }
+      return html;
+    }
+
+    function buildGalleryCard(post) {
+      var cover = getCoverImage(post);
+      var coverImage = (post.images || [])[0];
+      var cardAlt = getImageAlt(post, coverImage);
+      var excerpt = getExcerpt(post);
+      var imageCount = getPostImages(post).length;
+      var videoCount = getPostVideos(post).length;
+      var mediaCount = getMediaCount(post);
+      var hasVideo = videoCount > 0;
+      var labelsHtml = buildLabelsHtml(post.labels);
+
+      var card = document.createElement('article');
+      card.className = 'gallery-card group rounded-2xl overflow-hidden bg-earth-dark/30 border border-white/5 flex flex-col';
+      card.dataset.slug = post.slug;
+
+      var html = '<div class="relative aspect-[4/3] overflow-hidden bg-forest-deep">';
+      if (cover) {
+        html += '<img src="' + escapeHtml(cover) + '" alt="' + escapeHtml(cardAlt) + '" loading="lazy" decoding="async" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />';
+      } else {
+        html += '<div class="w-full h-full flex items-center justify-center bg-gradient-to-br from-forest-deep to-earth-dark font-display text-moon/60 text-4xl" aria-hidden="true">\u263d</div>';
+      }
+      html += '<div class="absolute inset-0 bg-card-shine pointer-events-none" aria-hidden="true"></div>';
+      if (hasVideo) html += '<div class="media-play-badge" aria-hidden="true"><span>&#9654;</span></div>';
+      if (mediaCount > 0) {
+        var badge = '';
+        if (imageCount > 0) badge += imageCount + ' foto' + (imageCount === 1 ? '' : 's');
+        if (videoCount > 0) badge += (badge ? ' · ' : '') + videoCount + ' video' + (videoCount === 1 ? '' : 's');
+        html += '<span class="absolute top-4 right-4 px-3 py-1 rounded-full bg-charcoal/70 backdrop-blur-sm text-[10px] tracking-[0.15em] uppercase text-moon-pale border border-moon/20">' + badge + '</span>';
+      }
+      html += '</div><div class="p-8 lg:p-10 flex flex-col flex-1 gap-4">';
+      html += '<time class="text-xs tracking-[0.2em] uppercase text-sand/75" datetime="">' + escapeHtml(post.published || '') + '</time>';
+      html += '<h3 class="font-display text-xl lg:text-2xl text-moon-pale leading-snug group-hover:text-moon-light transition-colors">' + escapeHtml(post.title) + '</h3>';
+      html += '<p class="text-sand/80 text-sm leading-relaxed flex-1">' + escapeHtml(excerpt) + '</p>';
+      if (labelsHtml) html += '<div class="flex flex-wrap items-center gap-1 pt-2">' + labelsHtml + '</div>';
+      if (mediaCount > 0) {
+        html += '<span class="inline-flex items-center gap-2 text-moon text-sm tracking-wide mt-2 pointer-events-none">Ver galeria <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 21l-4.35-4.35M11 19a7 7 0 11-14 0 7 7 0 0114 0zM10 8v6m3-3H7"/></svg></span>';
+      } else {
+        html += '<span class="text-sand/70 text-sm mt-2">Sin imagenes en esta entrada</span>';
+      }
+      html += '</div>';
+      card.innerHTML = html;
+
+      if (mediaCount > 0) {
+        card.setAttribute('role', 'button');
+        card.setAttribute('tabindex', '0');
+        card.addEventListener('click', function () { openLightbox(post, 0); });
+        card.addEventListener('keydown', function (e) {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            openLightbox(post, 0);
+          }
+        });
+      }
+
+      return card;
+    }
+
+    function buildSearchHaystack(post) {
+      var parts = [post.title, post.text, post.published, post.slug];
+      var labels = post.labels || [];
+      var imgs = post.images || [];
+      var i;
+      for (i = 0; i < labels.length; i++) parts.push(labels[i]);
+      for (i = 0; i < imgs.length; i++) {
+        parts.push([imgs[i].description, imgs[i].caption, imgs[i].alt].join(' '));
+      }
+      var vids2 = post.videos || [];
+      for (i = 0; i < vids2.length; i++) {
+        parts.push([vids2[i].title, vids2[i].embed_url, vids2[i].type].join(' '));
+      }
+      return parts.join(' ');
+    }
+
+    function findPostByUrl(url) {
+      if (!url) return null;
+      var i, p, norm = url.replace(/\/$/, '');
+      for (i = 0; i < blogPosts.length; i++) {
+        p = blogPosts[i];
+        if (p.url === url || p.url.replace(/\/$/, '') === norm) return p;
+      }
+      return null;
+    }
+
+    function findPostByTitle(title) {
+      if (!title) return null;
+      var i;
+      for (i = 0; i < blogPosts.length; i++) {
+        if (blogPosts[i].title === title) return blogPosts[i];
+      }
+      return null;
+    }
+
+    function updateGalleryCount(filtered, total) {
+      var countEl = document.getElementById('gallery-count');
+      if (!total) total = blogPosts.length;
+      if (!total) {
+        countEl.textContent = '';
+        return;
+      }
+      countEl.textContent = filtered === total
+        ? 'Mostrando las ' + total + ' entradas de la bitacora'
+        : 'Mostrando ' + filtered + ' de ' + total + ' entradas';
+    }
+
+    function wireServerGallery() {
+      var cards = document.querySelectorAll('#gallery-grid .gallery-card');
+      var i, card, post, url, title, images;
+      for (i = 0; i < cards.length; i++) {
+        card = cards[i];
+        url = card.getAttribute('data-post-url') || '';
+        title = card.getAttribute('data-post-title') || '';
+        post = findPostByUrl(url) || findPostByTitle(title);
+        if (!post) continue;
+        card.setAttribute('data-search', buildSearchHaystack(post));
+        if (!getMediaCount(post)) continue;
+        card.setAttribute('role', 'button');
+        card.setAttribute('tabindex', '0');
+        (function (p) {
+          function openCard() { openLightbox(p, 0); }
+          card.addEventListener('click', openCard);
+          card.addEventListener('keydown', function (e) {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              openCard();
+            }
+          });
+        })(post);
+      }
+    }
+
+    function filterServerGallery() {
+      var cards = document.querySelectorAll('#gallery-grid .gallery-card');
+      var q = searchQuery.toLowerCase().trim();
+      var empty = document.getElementById('gallery-empty');
+      var visible = 0;
+      var i, card, hay;
+      for (i = 0; i < cards.length; i++) {
+        card = cards[i];
+        hay = (card.getAttribute('data-search') || card.getAttribute('data-post-title') || '').toLowerCase();
+        if (!q || hay.indexOf(q) !== -1) {
+          card.classList.remove('hidden');
+          visible++;
+        } else {
+          card.classList.add('hidden');
+        }
+      }
+      if (visible === 0 && cards.length) {
+        empty.classList.remove('hidden');
+      } else {
+        empty.classList.add('hidden');
+      }
+      updateGalleryCount(visible, cards.length);
+    }
+
+    function renderGallery() {
+      var gen = ++renderGeneration;
+      var grid = document.getElementById('gallery-grid');
+      var empty = document.getElementById('gallery-empty');
+      var filtered = blogPosts.filter(postMatches);
+
+      grid.innerHTML = '';
+      updateGalleryCount(filtered.length, blogPosts.length);
+
+      if (filtered.length === 0) {
+        empty.classList.remove('hidden');
+        return;
+      }
+      empty.classList.add('hidden');
+
+      var index = 0;
+
+      function appendBatch() {
+        if (gen !== renderGeneration) return;
+
+        var fragment = document.createDocumentFragment();
+        var end = Math.min(index + GALLERY_BATCH, filtered.length);
+        var i;
+
+        for (i = index; i < end; i++) {
+          fragment.appendChild(buildGalleryCard(filtered[i]));
+        }
+        index = end;
+        grid.appendChild(fragment);
+
+        if (index < filtered.length) {
+          scheduleIdle(appendBatch, 80);
+        }
+      }
+
+      scheduleIdle(appendBatch, 80);
+    }
+
+    function renderItemPage(post) {
+      var el = document.getElementById('item-content');
+      if (!el || !post) return;
+      var home = window.location.protocol + '//' + window.location.host + '/';
+      var html = '';
+      var i, im, vid;
+      html += '<time class="text-xs tracking-[0.2em] uppercase text-sand/75 block mb-4">' + escapeHtml(post.published || '') + '</time>';
+      html += '<h1 class="font-display text-3xl sm:text-4xl text-moon-pale mb-8 leading-tight">' + escapeHtml(post.title) + '</h1>';
+      html += '<div class="post-body text-sand/85 text-lg leading-relaxed space-y-8">';
+      if (post.text) html += '<p>' + escapeHtml(post.text) + '</p>';
+      for (i = 0; i < (post.images || []).length; i++) {
+        im = post.images[i];
+        if (!im.src) continue;
+        html += '<figure class="space-y-2"><img src="' + escapeHtml(im.src) + '" alt="' + escapeHtml(im.alt || post.title) + '" class="w-full rounded-lg" loading="lazy" decoding="async" />';
+        if (im.caption) html += '<figcaption class="text-sm text-sand/70 italic">' + escapeHtml(im.caption) + '</figcaption>';
+        html += '</figure>';
+      }
+      for (i = 0; i < getPostVideos(post).length; i++) {
+        vid = getPostVideos(post)[i];
+        html += '<div class="aspect-video w-full max-w-3xl mx-auto rounded-lg overflow-hidden bg-charcoal">' + buildVideoPlayerHtml(vid) + '</div>';
+        if (vid.title) html += '<p class="text-sm text-sand/70 italic text-center">' + escapeHtml(vid.title) + '</p>';
+      }
+      html += '</div>';
+      html += '<p class="mt-12"><a href="' + home + '#bitacora" class="text-moon hover:text-moon-light tracking-wide">&#8592; Volver a la bitacora</a></p>';
+      el.innerHTML = html;
+    }
+
+    function initItemPage() {
+      var el = document.getElementById('item-content');
+      if (!el) return;
+      el.innerHTML = '<p class="text-sand/75">Cargando entrada\u2026</p>';
+      loadBlogPosts().then(function () {
+        var path = window.location.pathname.replace(/\/$/, '');
+        var i, post;
+        for (i = 0; i < blogPosts.length; i++) {
+          if (blogPosts[i].url && blogPosts[i].url.replace(/\/$/, '').indexOf(path) !== -1) {
+            post = blogPosts[i];
+            break;
+          }
+        }
+        if (post) renderItemPage(post);
+        else el.innerHTML = '<p class="text-sand/75">No se encontro esta entrada.</p>';
+      }).catch(function () {
+        el.innerHTML = '<p class="text-sand/75">No se pudo cargar la entrada.</p>';
+      });
+    }
+
+    function scheduleGalleryLoad() {
+      var countEl = document.getElementById('gallery-count');
+      var grid = document.getElementById('gallery-grid');
+      if (!grid) return;
+      countEl.textContent = 'Cargando la bitacora\u2026';
+
+      scheduleIdle(function () {
+        loadBlogPosts().then(function () {
+          applyHeroFromFeed();
+          updateBitacoraIntro();
+          renderGallery();
+        }).catch(function (err) {
+          console.error(err);
+          countEl.textContent = '';
+          grid.innerHTML = '<p class="col-span-full text-center text-sand/75 py-20">No se pudo cargar la bitacora. Comprueba la conexion o el feed del blog.</p>';
+        });
+      });
+    }
+
+    function initApp() {
+      initLightbox();
+      applyHeroImage();
+
+      document.getElementById('search-input').addEventListener('input', function (e) {
+        searchQuery = e.target.value;
+        clearTimeout(searchDebounceTimer);
+        searchDebounceTimer = setTimeout(function () {
+          if (blogPosts.length) renderGallery();
+        }, 150);
+      });
+
+      var menuToggle = document.getElementById('menu-toggle');
+      var header = document.getElementById('site-header');
+      menuToggle.addEventListener('click', function () { header.classList.toggle('nav-open'); });
+      var links = document.querySelectorAll('.mobile-link');
+      var li;
+      for (li = 0; li < links.length; li++) {
+        links[li].addEventListener('click', function () { header.classList.remove('nav-open'); });
+      }
+
+      window.addEventListener('scroll', function () {
+        header.classList.toggle('shadow-2xl', window.scrollY > 40);
+      }, { passive: true });
+
+      if (document.getElementById('item-content')) {
+        initItemPage();
+      } else {
+        scheduleGalleryLoad();
+      }
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initApp);
+    } else {
+      initApp();
+    }
+
+      //]]></script>
+
+      <div class='hidden' style='display: none !important;'>
+        <b:section class='main' id='main_content' maxwidgets='1' name='Entradas del blog' showaddelement='yes'>
+          <b:widget id='Blog1' locked='true' title='Entradas del blog' type='Blog' visible='true'/>
+        </b:section>
+      </div>
+    </body>
+    </html>

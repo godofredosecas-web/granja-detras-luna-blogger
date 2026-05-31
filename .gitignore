@@ -1,0 +1,9 @@
+node_modules/
+.venv/
+granja_blog.json
+images/
+__pycache__/
+*.pyc
+indexbackup.html
+--help
+.DS_Store

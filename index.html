@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Granja Detrás de la Luna — espacio sagrado en Chihuahua dedicado a medicina ancestral, Temazcal terapéutico y reconexión espiritual en comunidad." />
+  <title>Granja Detrás de la Luna | Espacio Sagrado en Chihuahua</title>
+  <link rel="preload" as="image" href="images/hero.webp" type="image/webp" fetchpriority="high" />
+  <link rel="stylesheet" href="site.css" />
+  <style>
+    body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background: #141210; color: #F0E8DA; margin: 0; }
+    #inicio { min-height: 100vh; position: relative; }
+    #inicio .absolute.inset-0 { position: absolute; inset: 0; }
+    #inicio .absolute.inset-0 picture { display: block; width: 100%; height: 100%; }
+    #inicio .absolute.inset-0 img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    #inicio .relative.z-10 { text-shadow: 0 2px 28px rgba(0,0,0,0.55), 0 1px 4px rgba(0,0,0,0.4); }
+    .font-display { font-family: Georgia, 'Times New Roman', serif; }
+    .gallery-card { transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.45s ease; }
+    .gallery-card:hover { transform: translateY(-6px); box-shadow: 0 24px 48px rgba(0,0,0,0.45); }
+    .nav-open #mobile-panel { max-height: 24rem; opacity: 1; }
+    .nav-open #menu-icon-open { display: none; }
+    .nav-open #menu-icon-close { display: block; }
+    #menu-icon-close { display: none; }
+    ::selection { background: rgba(201, 169, 98, 0.35); color: #fff; }
+    #lightbox:not(.is-open) { display: none; }
+    #lightbox.is-open { display: flex; }
+    body.lightbox-open { overflow: hidden; }
+    #lightbox-img { transition: opacity 0.25s ease, max-height 0.35s cubic-bezier(0.22, 1, 0.36, 1), max-width 0.35s cubic-bezier(0.22, 1, 0.36, 1); }
+    #lightbox-img.is-changing { opacity: 0; }
+    #lightbox-image-wrap { cursor: zoom-in; }
+    #lightbox.is-image-zoomed #lightbox-image-wrap { cursor: zoom-out; }
+    #lightbox-chrome-top,
+    #lightbox-chrome-bottom,
+    #lightbox-prev,
+    #lightbox-next,
+    #lightbox-zoom-hint {
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+    #lightbox.is-image-zoomed #lightbox-panel {
+      max-width: 100%;
+      max-height: 100%;
+      width: 100%;
+      height: 100%;
+      background: transparent;
+      border-color: transparent;
+      box-shadow: none;
+      border-radius: 0;
+      transition: background 0.3s ease, border-color 0.3s ease;
+    }
+    #lightbox.is-image-zoomed #lightbox-chrome-top,
+    #lightbox.is-image-zoomed #lightbox-chrome-bottom,
+    #lightbox.is-image-zoomed #lightbox-prev,
+    #lightbox.is-image-zoomed #lightbox-next,
+    #lightbox.is-image-zoomed #lightbox-zoom-hint {
+      opacity: 0;
+      pointer-events: none;
+      transform: scale(0.96);
+    }
+    #lightbox.is-image-zoomed #lightbox-close {
+      opacity: 0;
+      pointer-events: none;
+    }
+    #lightbox.is-image-zoomed #lightbox-backdrop {
+      background: rgba(20, 18, 16, 0.97);
+    }
+    #lightbox.is-image-zoomed #lightbox-stage {
+      flex: 1;
+      min-height: 100%;
+      padding: 0;
+    }
+    #lightbox.is-image-zoomed #lightbox-image-wrap {
+      position: fixed;
+      inset: 0;
+      z-index: 25;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+      min-height: auto;
+      max-height: none;
+    }
+    #lightbox.is-image-zoomed #lightbox-img {
+      max-height: 96vh;
+      max-width: 96vw;
+      border-radius: 0.25rem;
+    }
+    #lightbox-video-wrap { display: none; width: 100%; max-width: 100%; min-height: 266px; aspect-ratio: 16/9; max-height: 58vh; position: relative; z-index: 5; }
+    #lightbox-video-wrap iframe { display: block; width: 100%; min-height: 266px; height: 100%; background: #141210; }
+    #lightbox.is-video-slide #lightbox-image-wrap { display: none !important; }
+    #lightbox.is-video-slide #lightbox-video-wrap { display: flex !important; align-items: center; justify-content: center; }
+    #lightbox.is-video-slide #lightbox-zoom-hint { display: none !important; }
+    #lightbox-video-fallback { display: none; margin-top: 0.75rem; text-align: center; }
+    #lightbox.is-video-slide #lightbox-video-fallback.is-visible { display: block; }
+    #lightbox.is-video-slide #lightbox-video-wrap { flex-direction: column; }
+    .blogger-video-shell { width: 100%; display: flex; flex-direction: column; align-items: center; gap: 1rem; }
+    .blogger-video-actions { display: flex; flex-wrap: wrap; gap: 0.75rem; justify-content: center; z-index: 12; }
+    .blogger-video-open-btn { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.85rem 1.5rem; border-radius: 9999px; background: rgba(201,169,98,0.92); color: #141210; font-weight: 600; font-size: 0.95rem; text-decoration: none; box-shadow: 0 8px 24px rgba(0,0,0,0.35); }
+    .blogger-video-open-btn:hover { background: rgb(226, 201, 138); color: #141210; }
+    .blogger-video-post-link { display: inline-flex; align-items: center; padding: 0.85rem 1.25rem; border-radius: 9999px; border: 1px solid rgba(201,169,98,0.45); color: #F5E6C8; font-size: 0.9rem; text-decoration: none; }
+    .blogger-video-hint { font-size: 0.8rem; color: hsla(40,30%,79%,0.88); text-align: center; max-width: 34rem; line-height: 1.55; margin: 0; }
+    .blogger-video-iframe-wrap { width: 100%; border-radius: 0.5rem; overflow: hidden; background: #141210; }
+    .gallery-card .media-play-badge { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; pointer-events: none; }
+    .gallery-card .media-play-badge span { width: 3.5rem; height: 3.5rem; border-radius: 9999px; background: rgba(20,18,16,0.72); border: 1px solid rgba(201,169,98,0.35); display: flex; align-items: center; justify-content: center; color: #F5E6C8; font-size: 1.25rem; }
+    .gallery-card { cursor: pointer; }
+    .gallery-card:focus-visible { outline: 2px solid rgba(201, 169, 98, 0.6); outline-offset: 4px; }
+  </style>
+</head>
+<body class="antialiased text-sand-warm bg-charcoal">
+
+  <header id="site-header" class="fixed top-0 inset-x-0 z-50 transition-all duration-500 bg-charcoal/70 backdrop-blur-md border-b border-white/5">
+    <div class="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 flex items-center justify-between h-20 lg:h-24">
+      <a href="#inicio" class="font-display text-lg sm:text-xl tracking-wide text-moon-pale hover:text-moon-light transition-colors">Detrás de la Luna</a>
+      <nav class="hidden md:flex items-center gap-10 text-sm tracking-[0.12em] uppercase text-sand/80">
+        <a href="#inicio" class="hover:text-moon-light transition-colors">Inicio</a>
+        <a href="#filosofia" class="hover:text-moon-light transition-colors">Filosofía</a>
+        <a href="#bitacora" class="hover:text-moon-light transition-colors">Bitácora</a>
+        <a href="https://calendar.app.google/YDDPBgQ76pFZHpHV7" target="_blank" rel="noopener noreferrer" class="text-moon hover:text-moon-light transition-colors">Reservar</a>
+      </nav>
+      <button id="menu-toggle" type="button" aria-label="Abrir menú" class="md:hidden p-2 text-moon-pale hover:text-moon-light">
+        <svg id="menu-icon-open" class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 6h16M4 12h16M4 18h16"/></svg>
+        <svg id="menu-icon-close" class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <div id="mobile-panel" class="md:hidden overflow-hidden max-h-0 opacity-0 transition-all duration-400 ease-out border-t border-white/5 bg-charcoal/95">
+      <nav class="flex flex-col px-6 py-8 gap-6 text-sm tracking-[0.14em] uppercase text-sand/90">
+        <a href="#inicio" class="mobile-link hover:text-moon-light">Inicio</a>
+        <a href="#filosofia" class="mobile-link hover:text-moon-light">Filosofía</a>
+        <a href="#bitacora" class="mobile-link hover:text-moon-light">Bitácora</a>
+        <a href="https://calendar.app.google/YDDPBgQ76pFZHpHV7" target="_blank" rel="noopener noreferrer" class="text-moon hover:text-moon-light">Reservar sesión</a>
+      </nav>
+    </div>
+  </header>
+
+  <section id="inicio" class="relative min-h-screen flex items-center justify-center overflow-hidden">
+    <div class="absolute inset-0">
+      <picture>
+        <source srcset="images/hero.webp" type="image/webp" />
+        <img src="images/hero.jpg" alt="Panorámica del rancho Detrás de la Luna bajo un doble arcoíris al atardecer" fetchpriority="high" decoding="sync" width="1024" height="453" class="w-full h-full object-cover object-[72%_38%] scale-105 brightness-110 saturate-110" />
+      </picture>
+      <div class="absolute inset-0 bg-hero-gradient"></div>
+      <div class="absolute inset-0 bg-gradient-to-l from-transparent via-transparent to-charcoal/25"></div>
+    </div>
+    <div class="relative z-10 max-w-5xl mx-auto px-8 sm:px-12 lg:px-16 text-center pt-28 pb-32">
+      <p class="text-moon/90 text-xs sm:text-sm tracking-[0.35em] uppercase mb-8 font-medium">Carretera Aldama · Chihuahua, México</p>
+      <h1 class="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-moon-pale leading-[1.1] mb-8 font-semibold">Granja Detrás de la Luna</h1>
+      <p class="font-display text-xl sm:text-2xl md:text-3xl text-sand/90 italic font-normal mb-12 max-w-3xl mx-auto leading-relaxed">Espacio sagrado de medicina ancestral, tierra viva y ceremonia consciente</p>
+      <p class="text-sand/75 text-base sm:text-lg max-w-2xl mx-auto leading-relaxed mb-14 font-light">En el corazón del norte mexicano cultivamos un santuario ecológico donde el Temazcal terapéutico, la sanación integral y la comunidad se encuentran bajo la luna — entre piedra, agua, fuego y canto.</p>
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-5 sm:gap-8">
+        <a href="#bitacora" class="inline-flex items-center justify-center px-10 py-4 rounded-full bg-moon/90 text-charcoal font-medium tracking-wide hover:bg-moon-light transition-all shadow-lg shadow-moon/20">Explorar la bitácora</a>
+        <a href="https://calendar.app.google/YDDPBgQ76pFZHpHV7" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center gap-2 px-10 py-4 rounded-full border border-moon/50 text-moon-pale tracking-wide hover:bg-moon/10 hover:border-moon-light transition-all">
+          <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+          Concertar reservación
+        </a>
+      </div>
+    </div>
+    <div class="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce opacity-50">
+      <svg class="w-6 h-6 text-moon-pale" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 9l-7 7-7-7"/></svg>
+    </div>
+  </section>
+
+  <section id="filosofia" class="py-28 sm:py-36 lg:py-44 bg-gradient-to-b from-charcoal via-earth-dark/40 to-charcoal">
+    <div class="max-w-4xl mx-auto px-8 sm:px-12 lg:px-16">
+      <div class="text-center mb-20 lg:mb-28">
+        <span class="text-moon text-xs tracking-[0.4em] uppercase font-medium">Quiénes somos</span>
+        <h2 class="font-display text-3xl sm:text-4xl lg:text-5xl text-moon-pale mt-6 mb-8 leading-tight">Filosofía del espacio sagrado</h2>
+        <div class="w-24 h-px bg-moon/40 mx-auto"></div>
+      </div>
+      <div class="space-y-10 text-sand/85 text-lg sm:text-xl leading-[1.85] font-light">
+        <p><strong class="font-medium text-moon-pale font-display font-normal text-2xl not-italic">Detrás de la Luna</strong> es un espacio sagrado en Chihuahua, México, dedicado a la medicina ancestral, el <strong class="text-moon-light">Temazcal Terapéutico</strong>, la sanación integral y la reconexión espiritual en comunidad. Aquí la tierra no es un escenario: es maestra, altar y medicina.</p>
+        <p>Nuestra granja ecológica integra permacultura, construcción natural con mampostería y piedra de la región, invernaderos subterráneos (walipini), biopiscinas y estanques vivos — porque el cuerpo y el paisaje sanan cuando respiran el mismo ritmo. Cada muro levantado, cada semilla y cada gota de lluvia registrada en nuestra bitácora es testimonio de un pacto consciente con la vida.</p>
+        <p>Las ceremonias y encuentros se sostienen mediante <strong class="text-moon-light">procesos conscientes</strong>: cantos, rezos, silencio compartido y la guía del vapor del temazcal como portal de purificación. No ofrecemos turismo espiritual acelerado; invitamos a habitar el tiempo lento de la Tierra, honrando la armonía del círculo sagrado.</p>
+        <p class="font-display italic text-moon-pale/90 text-center text-xl sm:text-2xl pt-8 border-t border-white/10 mt-12">«Donde la luna ilumina la sombra, la raíz encuentra su canto.»</p>
+      </div>
+      <div class="grid sm:grid-cols-3 gap-8 mt-24 lg:mt-32">
+        <article class="text-center p-10 rounded-2xl bg-forest-deep/50 border border-white/5">
+          <div class="text-moon font-display text-3xl mb-4">☽</div>
+          <h3 class="font-display text-xl text-moon-pale mb-3">Temazcal</h3>
+          <p class="text-sand/70 text-sm leading-relaxed">Construcción ceremonial y vapor terapéutico como camino de purificación y encuentro.</p>
+        </article>
+        <article class="text-center p-10 rounded-2xl bg-forest-deep/50 border border-white/5">
+          <div class="text-moon font-display text-3xl mb-4">❋</div>
+          <h3 class="font-display text-xl text-moon-pale mb-3">Tierra viva</h3>
+          <p class="text-sand/70 text-sm leading-relaxed">Permacultura, agua, piedra y bosque seco: pedagogía ecológica desde el cuerpo al territorio.</p>
+        </article>
+        <article class="text-center p-10 rounded-2xl bg-forest-deep/50 border border-white/5">
+          <div class="text-moon font-display text-3xl mb-4">◎</div>
+          <h3 class="font-display text-xl text-moon-pale mb-3">Comunidad</h3>
+          <p class="text-sand/70 text-sm leading-relaxed">Círculos de sanación, trabajo colectivo y celebración consciente bajo reservación previa.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="bitacora" class="py-28 sm:py-36 lg:py-44 bg-charcoal border-t border-white/5">
+    <div class="max-w-7xl mx-auto px-8 sm:px-12 lg:px-16">
+      <div class="text-center mb-16 lg:mb-24 max-w-3xl mx-auto">
+        <span class="text-moon text-xs tracking-[0.4em] uppercase font-medium">Galería del espacio sagrado</span>
+        <h2 class="font-display text-3xl sm:text-4xl lg:text-5xl text-moon-pale mt-6 mb-6">Bitácora de la Tierra</h2>
+        <p class="text-sand/70 text-lg leading-relaxed font-light">55 registros del rancho ecológico — mampostería, walipini, biopiscina, lluvias y vida en comunidad — nuestra memoria viva en la tierra.</p>
+      </div>
+      <div class="max-w-2xl mx-auto mb-12 lg:mb-16">
+        <label for="search-input" class="sr-only">Buscar en la bitácora</label>
+        <div class="relative">
+          <svg class="absolute left-5 top-1/2 -translate-y-1/2 w-5 h-5 text-sand/65" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 21l-4.35-4.35M11 18a7 7 0 100-14 7 7 0 000 14z"/></svg>
+          <input id="search-input" type="search" placeholder="Buscar por título, texto o etiqueta…" class="w-full pl-14 pr-6 py-5 rounded-2xl bg-earth-dark/60 border border-white/10 text-sand-warm placeholder:text-sand/60 focus:outline-none focus:border-moon/50 focus:ring-1 focus:ring-moon/30 transition-all" />
+        </div>
+      </div>
+      <p id="gallery-count" class="text-center text-sand/75 text-sm mb-10 tracking-wide" aria-live="polite"></p>
+      <div id="gallery-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 lg:gap-12"></div>
+      <p id="gallery-empty" class="hidden text-center text-sand/60 text-lg py-20 font-display italic">Ninguna entrada coincide con tu búsqueda. Prueba otra palabra o etiqueta.</p>
+    </div>
+  </section>
+
+  <!-- Lightbox / galería por entrada -->
+  <div id="lightbox" class="fixed inset-0 z-[100] items-center justify-center p-4 sm:p-8" role="dialog" aria-modal="true" aria-labelledby="lightbox-title" aria-hidden="true">
+    <div id="lightbox-backdrop" class="absolute inset-0 bg-charcoal/88 backdrop-blur-md" aria-hidden="true"></div>
+    <div id="lightbox-panel" class="relative z-10 w-full max-w-5xl max-h-[92vh] flex flex-col rounded-2xl border border-white/10 bg-earth-dark/95 shadow-2xl shadow-black/50 overflow-hidden transition-all duration-300">
+      <div id="lightbox-chrome-top" class="flex items-start justify-between gap-6 px-6 sm:px-10 pt-6 sm:pt-8 pb-4 border-b border-white/5">
+        <div class="min-w-0 flex-1">
+          <p id="lightbox-date" class="text-xs tracking-[0.2em] uppercase text-sand/75 mb-2"></p>
+          <h2 id="lightbox-title" class="font-display text-xl sm:text-2xl text-moon-pale leading-snug truncate"></h2>
+          <p id="lightbox-counter" class="text-sand/70 text-xs mt-2 tracking-wide"></p>
+        </div>
+        <button id="lightbox-close" type="button" aria-label="Cerrar galería" class="shrink-0 w-11 h-11 rounded-full border border-white/15 text-sand/80 hover:text-moon-pale hover:border-moon/50 hover:bg-moon/10 transition-all flex items-center justify-center">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+      <div id="lightbox-stage" class="relative flex items-center justify-center flex-1 min-h-0 px-4 sm:px-6 py-6 transition-all duration-300">
+        <button id="lightbox-prev" type="button" aria-label="Imagen anterior" class="absolute left-2 sm:left-4 z-20 w-12 h-12 rounded-full border border-white/15 bg-charcoal/60 backdrop-blur-sm text-moon-pale hover:bg-moon/20 hover:border-moon/40 transition-all flex items-center justify-center disabled:opacity-25 disabled:pointer-events-none">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 19l-7-7 7-7"/></svg>
+        </button>
+        <div id="lightbox-media" class="relative w-full flex flex-col items-center justify-center min-h-[40vh] max-h-[70vh]">
+          <div id="lightbox-image-wrap" class="relative w-full flex flex-col items-center justify-center max-h-[58vh] group" role="button" tabindex="0" aria-label="Expandir imagen a pantalla completa">
+            <img id="lightbox-img" src="" alt="" class="max-w-full max-h-[58vh] w-auto h-auto object-contain rounded-lg select-none" />
+            <span id="lightbox-zoom-hint" class="absolute top-3 right-3 z-10 flex items-center justify-center w-9 h-9 rounded-full bg-charcoal/75 backdrop-blur-sm border border-moon/25 text-moon-pale pointer-events-none shadow-lg" aria-hidden="true">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"/></svg>
+            </span>
+          </div>
+          <div id="lightbox-video-wrap" class="w-full max-h-[58vh] rounded-lg overflow-hidden bg-charcoal"></div>
+          <p id="lightbox-video-fallback" class="text-sm text-sand/80"></p>
+        </div>
+        <button id="lightbox-next" type="button" aria-label="Imagen siguiente" class="absolute right-2 sm:right-4 z-20 w-12 h-12 rounded-full border border-white/15 bg-charcoal/60 backdrop-blur-sm text-moon-pale hover:bg-moon/20 hover:border-moon/40 transition-all flex items-center justify-center disabled:opacity-25 disabled:pointer-events-none">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5l7 7-7 7"/></svg>
+        </button>
+      </div>
+      <div id="lightbox-chrome-bottom" class="px-6 sm:px-10 pb-8 sm:pb-10 pt-2 border-t border-white/5 min-h-[4.5rem]">
+        <p id="lightbox-caption" class="font-display text-base sm:text-lg text-sand/90 text-center leading-relaxed italic"></p>
+      </div>
+    </div>
+  </div>
+
+  <footer class="py-12 border-t border-white/5 bg-charcoal">
+    <div class="max-w-7xl mx-auto px-8 sm:px-12 lg:px-16 flex flex-col md:flex-row items-center justify-center md:justify-between gap-6 text-sand/70 text-sm">
+      <span class="font-display text-moon-pale/80">Granja Detrás de la Luna</span>
+      <span>© 2026 · Carretera Aldama, Chihuahua, México</span>
+    </div>
+  </footer>
+
+  <script defer src="app.js"></script>
+</body>
+</html>
