@@ -2,6 +2,7 @@ node_modules/
 .venv/
 granja_blog.json
 images/
+prompts.md
 __pycache__/
 *.pyc
 indexbackup.html

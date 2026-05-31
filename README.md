@@ -11,8 +11,9 @@ Sitio y tema para [Granja Detrás de la Luna](https://granjadetrasdelaluna.blogs
 | `scrape_granja.py` | Scraper del blog → JSON + imágenes |
 | `scripts/rebuild_blog_json.py` | Reconstruye `granja_blog.json` desde el feed (recomendado) |
 | `scripts/apply_video_support.py` | Parches de soporte de vídeo en el XML |
-| `prompts.md` | Historial de prompts y decisiones del proyecto |
 | `granja-hero-upload.jpg` | Hero para subir manualmente a Blogger |
+
+Notas de desarrollo en Cursor (`prompts.md`) quedan solo en tu máquina; no están en este repositorio.
 
 ## Requisitos
 
@@ -73,6 +74,6 @@ También funciona en Firefox con la misma opción de rendimiento. Alternativa es
 - Blog: https://granjadetrasdelaluna.blogspot.com/
 - Reservas: https://calendar.app.google/YDDPBgQ76pFZHpHV7
 
-## Documentación de desarrollo
+## Repositorio
 
-Ver [prompts.md](./prompts.md) para el historial completo de la sesión en Cursor.
+Código en [godofredosecas-web/granja-detras-luna-blogger](https://github.com/godofredosecas-web/granja-detras-luna-blogger). La carpeta de trabajo es el clon o copia de ese repo; `granja_blog.json` e `images/` se generan localmente (`.gitignore`).
